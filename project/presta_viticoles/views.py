@@ -1,17 +1,45 @@
 from django.shortcuts import render_to_response , render
-
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView, DetailView, TemplateView
 
-
-from presta_viticoles.models import *
-
 from rest_framework import viewsets
-from presta_viticoles.serializers import *
 from rest_framework import filters
 from rest_framework import generics
+from rest_framework.renderers import JSONRenderer
+from rest_framework.parsers import JSONParser
 
+from presta_viticoles.models import *
+from presta_viticoles.serializers import *
 
+@csrf_exempt
+def activities_list(request):
+    """
+    List all code snippets, or create a new snippet.
+    """
+    if request.method == 'GET':
+        activities = ActivityPrestaViticole.objects.all()
+        serializer = ActivityPrestaViticoleSerializer(activities, many=True)
+        return JSONResponse(serializer.data)
+
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = ActivityPrestaViticoleSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JSONResponse(serializer.data, status=201)
+        return JSONResponse(serializer.errors, status=400)
+@csrf_exempt
+def activities_detail(request, company):
+    try:
+        activities = ActivityPrestaViticole.objects.filter(company_id=company)
+    except ActivityPrestaViticole.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = ActivityPrestaViticoleSerializer(activities,many = True)
+        return JSONResponse(serializer.data)
 
 class CompanyViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Company.objects.all()
@@ -49,3 +77,11 @@ def add_company(request,idCompany):
         print "Incorrect "
     return render(request, 'select-activities.html')
         
+class JSONResponse(HttpResponse):
+    """
+    An HttpResponse that renders its content into JSON.
+    """
+    def __init__(self, data, **kwargs):
+        content = JSONRenderer().render(data)
+        kwargs['content_type'] = 'application/json'
+        super(JSONResponse, self).__init__(content, **kwargs)        

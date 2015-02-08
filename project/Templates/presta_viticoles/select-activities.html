@@ -59,32 +59,49 @@
 
             <div class="row-fluid">
                 <div class="spacer">
-                    <form ng-show="showEntr == true"  id="formNouvEntr" class="form-horizontal" name="formNouvEntr" novalidate>
+                    <form ng-show="showEntr == true"  id="formNouvEntr" class="form-inline" name="formNouvEntr" novalidate>
+                        <table class="table table-striped table-hover spacer">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <a ng-click="triActivities('activities')">Activités</a>
+                                        <span></span>
+                                    </th>
+                                    <th class="colA">
+                                        <a  ng-click="triActivities('libelles')">Libellé</a>
+                                        <span></span>
+                                    </th>
+                                    <th>
+                                        <a>Plants</a>
+                                        <span></span>
+                                    </th>
+                                    <th>
+                                        <a>Date</a>
+                                        <span></span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="activity in activities" >
+                                    <td>{{ activity.name }}</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="form-group" >
+                                <input ng-model="newEntreprise.conf.parGuyot" type="checkbox" value="">
+                                <span>Taillage</span>
+                                <select> 
+                                    <option>Un </option>
+                                    <option>Un </option>
+                                    <option>Un </option>
+                                    <option>Un </option>
+                                <select/>
+                                <input type="text" class="form-control" />
 
-                        <div class="form-group" 
-                            ng-class="{ 'has-error' : formNouvEntr.name.$invalid && !formNouvEntr.name.$pristine }"
-                        >
-                            <label for="name" class="col-sm-2 control-label">Nom de l'entreprise : </label>
-                            <div class="col-sm-10">
-                                <input type="text" id="name" class="form-control"   ng-maxlength="8" name="name" ng-model="newEntreprise.entr.name" required/>
-                            </div>
-                            
-                        </div>
-                        <div class="form-group"
-                            ng-class="{ 'has-error' : formNouvEntr.siret.$invalid && !formNouvEntr.siret.$pristine }"
-                        >
-                            <label for="siret" class="col-sm-2 control-label">Numéro Siret : </label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" ng-pattern="/^\d{10}$/" name ="siret" id ="siret" ng-model="newEntreprise.entr.siret" required/>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="adesse" class="col-sm-2 control-label">Adresse: </label>
-                            <div class="col-sm-10">
-                                <input  type="text" class="form-control" id="adesse" ng-model="newEntreprise.entr.adesse" required/>
-                            </div>
-                        </div>
+                         </div>   
                         <div class="spacer">
                             <button ng-click="precEntr()" class="btn btn-info text-center">Retour</button>
                             <button ng-click="suivEntr()" ng-disabled="formNouvEntr.$invalid"  class="btn btn-info pull-right">Etape Suivante</button>

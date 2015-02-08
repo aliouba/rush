@@ -13,4 +13,3 @@ class ActivityPrestaViticoleSerializer(serializers.ModelSerializer):
 class CompanySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Company
-        fields = ("name") 
