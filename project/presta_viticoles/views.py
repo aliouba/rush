@@ -4,20 +4,28 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView, DetailView, TemplateView
 
 
-from presta_viticoles.models import Company
+from presta_viticoles.models import *
 
 from rest_framework import viewsets
 from presta_viticoles.serializers import *
+from rest_framework import filters
+from rest_framework import generics
 
 
 
-
-class CompanyViewSet(viewsets.ModelViewSet):
+class CompanyViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Company.objects.all()
     serializer_class = CompanySerializer
 class ConfigPrestaViticoleViewSet(viewsets.ModelViewSet):
     queryset = ConfigPrestaViticole.objects.all()
     serializer_class = ConfigPrestaViticoleSerializer
+class ActivityPrestaViticoleList(generics.ListAPIView):
+    model = ActivityPrestaViticole
+    serializer_class = ActivityPrestaViticoleSerializer
+    def get_queryset(self):
+        company = self.kwargs['company']
+        activities = ActivityPrestaViticole.objects.filter(company__id=company)
+        return activities
 
 class ActivitiesView(ListView):
     model = ActivityPrestaViticole

@@ -35,20 +35,9 @@ my_app.controller("creerCompanyCtrl", function($scope, $location, $filter ,$http
 	};
 
 	$scope.unetreprise = [];
-        $http.get('/prestaviticoles/api/nouveauentr/1/?format=json')
+        $http.get('/prestaviticoles/api/activities/1/?format=json')
           .success(function(out_data) {
-          	$scope.unetreprise.entr = out_data ;
-          	console.log($scope.unetreprise.entr); 
+          	$scope.activities = out_data ;
+          	console.log($scope.activities); 
         });
-
-    $scope.createEntrViticole = function (newEntreprise) {
-        // On prépare l'envoie des données.
-        var in_data = jQuery.param({'name': $scope.newEntreprise.entr.name, 'siret': $scope.newEntreprise.entr.siret,
-        	'adesse': $scope.newEntreprise.entr.adesse});
-        $http.post('/prestaviticoles/api/nouveauentr/1/?format=json', in_data)
-          .success(function(out_data) {
-          	$scope.newEntreprise = angular.copy({});
-        });
-    }
-
 });
