@@ -14,6 +14,23 @@ from presta_viticoles.models import *
 from presta_viticoles.serializers import *
 
 @csrf_exempt
+def activities_by_groups(request , company):
+    try:
+        allActivities = ActivityPrestaViticole.objects.filter(company_id=company)
+    except ActivityPrestaViticole.DoesNotExist:
+        return HttpResponse(status=404) 
+    activities = []
+    groups = []
+    for activity in allActivities:
+        groupActivity = ActivityGroup.objects.filter(id=activity.name_id)[0]
+        activities.append(groupActivity)
+        activities.append(activity)
+    print activities
+    if request.method == 'GET':
+        serializer = ActivitiesByGroupsSerializer(activities,many = True)
+        return JSONResponse(serializer.data)
+
+@csrf_exempt
 def activities_list(request):
     """
     List all code snippets, or create a new snippet.

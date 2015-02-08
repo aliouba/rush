@@ -9,7 +9,11 @@ class ConfigPrestaViticoleSerializer(serializers.HyperlinkedModelSerializer):
 class ActivityPrestaViticoleSerializer(serializers.ModelSerializer):
     class Meta:
         model = ActivityPrestaViticole
+        fields = ("name","description")
 
 class CompanySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Company
+class ActivitiesByGroupsSerializer(serializers.Serializer):
+    name = serializers.CharField(required=False)
+    description = serializers.CharField(required=False)

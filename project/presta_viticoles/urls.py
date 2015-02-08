@@ -14,4 +14,5 @@ urlpatterns = patterns('',
 	#url(r'^api/',include(router.urls)),
 	url(r'^api/activities/(?P<company>\d*)/$',activities_detail),
 	url(r'^api/activities/$',activities_list),	
+	url(r'^api/groups/(?P<company>\d*)/$',activities_by_groups),
 )
