@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     "presta_viticoles",
     "rest_framework",
+    "snippets",
 )
 
 MIDDLEWARE_CLASSES = (
@@ -105,7 +106,6 @@ ADMIN_MEDIA_PREFIX = '/static/admin/'
 
 
 REST_FRAMEWORK = {
- 'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
+    'PAGINATE_BY': 10
 }

@@ -7,6 +7,7 @@ urlpatterns = patterns('',
     # url(r'^$', 'project.views.home', name='home'),
     url(r'^prestaviticoles/', include('presta_viticoles.urls')),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'', include('snippets.urls')),
 )
 if settings.DEBUG:
     urlpatterns += patterns('',
