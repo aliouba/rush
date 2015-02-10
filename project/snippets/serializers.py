@@ -1,14 +1,16 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
+from snippets.models import *
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class TrackSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = ('url', 'username', 'email', 'groups')
+        model = Track
+        fields = ('order', 'title')
 
+class AlbumSerializer(serializers.ModelSerializer):
+    tracks = TrackSerializer(many=True, read_only=True)
 
-class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = Group
-        fields = ('url', 'name')
+        model = Album
+        fields = ('album_name', 'artist', 'tracks')
