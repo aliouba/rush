@@ -6,11 +6,11 @@ from snippets.models import *
 class TrackSerializer(serializers.ModelSerializer):
     class Meta:
         model = Track
-        fields = ('order', 'title')
+        fields = ('order', 'title','album_id')
 
 class AlbumSerializer(serializers.ModelSerializer):
-    tracks = TrackSerializer(many=True, read_only=True)
+    tracks = TrackSerializer(source='album_id',many=True, read_only=True)
 
     class Meta:
         model = Album
-        fields = ('album_name', 'artist', 'tracks')
+        fields = ('id', 'artist', 'tracks')
