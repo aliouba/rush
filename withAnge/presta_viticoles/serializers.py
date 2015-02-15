@@ -5,8 +5,8 @@ from presta_viticoles.models import *
 class ActivitiesSerializer(serializers.ModelSerializer):
     class Meta:
 		model = ActivityPrestaViticole
+		fields = ("id","description","price_plant_gs","price_plant_gd","price_ha_gs","price_ha_gd","name")
 class CompanySerializer(serializers.ModelSerializer):
-	activities = ActivitiesSerializer(many=True, read_only=True)
 	class Meta:
 		model = Company
-		fields = ("name","activities")
+		fields = ("name","description","siret","description")
