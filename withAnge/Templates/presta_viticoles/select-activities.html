@@ -60,7 +60,7 @@
             <div class="row-fluid">
                 <div class="spacer">
                     <form ng-show="showEntr == true"  id="formNouvEntr" class="form-inline" name="formNouvEntr" novalidate>
-                        <table class="table table-striped table-hover spacer">
+                        <table class="table table-striped  spacer">
                             <thead>
                                 <tr>
                                     <th>
@@ -76,17 +76,17 @@
                                         <span></span>
                                     </th>
                                     <th>
-                                        <a>Date</a>
+                                        <a>Selection</a>
                                         <span></span>
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="activity in allActivities" >
-                                    <td>{{ activity.name }}</td>
-                                    <td>{{ activity.description }}</td>
-                                    <td>{{ activity.price_plant_gd }}</td>
-                                    <td>{{ activity.description }}</td>
+                                <tr  ng-repeat="activity in allActivities" >
+                                        <td>{{ activity.name }}</td>
+                                        <td>{{ activity.description }}</td>
+                                        <td>{{ activity.price_plant_gd }}</td>
+                                        <td><input type="checkbox" value=""></td>
                                 </tr>
                             </tbody>
                         </table>  
