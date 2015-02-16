@@ -58,3 +58,31 @@ class CompanyDetail(APIView):
         company = self.get_object(siret)
         company.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+class ConfDetail(APIView):
+    """
+    Retrieve, update or delete a company instance.
+    """
+    def get_object(self, siret):
+        try:
+            company = Company.objects.filter(siret=siret)[0]
+            return ConfigPrestaViticole.objects.get(company_id=company.id)
+        except ConfigPrestaViticole.DoesNotExist:
+            raise Http404
+
+    def get(self, request, siret, format=None):
+        conf = self.get_object(siret)
+        serializer = ConfigPrestaViticoleSerializer(conf)
+        return Response(serializer.data)
+
+    def put(self, request, siret, format=None):
+        conf = self.get_object(siret)
+        serializer = ConfigPrestaViticoleSerializer(conf, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, siret, format=None):
+        conf = self.get_object(siret)
+        conf.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

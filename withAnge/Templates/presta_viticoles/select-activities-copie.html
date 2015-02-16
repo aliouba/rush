@@ -1,0 +1,197 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Nouvelle Entreprise</title>
+        <link rel="stylesheet" href="/static/lib/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/static/lib/bootstrap/css/bootstrap-theme.min.css">
+
+        <link rel="stylesheet" href="/static/css/style.css"/>
+        <!--[if lt IE 9]>
+            <script src="js/html5shiv.min.js"></script>
+        <![endif]-->
+
+    </head>
+    <body ng-app="CreerCompany" ng-controller="creerCompanyCtrl">  
+      
+        <nav class="navbar navbar-inverse">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">HEYY!!</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav navbar-right">
+              </ul>
+            </div><!-- /.navbar-collapse -->
+        </nav>
+
+        <div class="container">        
+            <div class="row-fluid">
+                <div class="spacer">
+                    <div ng-show="showHome == true" class="spacer">
+                        <p>Un service transparent.Nous vous accompagnons avec la meilleure façon possible afin de pouvoir proposer des devis automatiques à vos clients .Nous n'avez que quatre étapes pour mettre les informations nécessaires pour l'établissement de devis automatiques  .
+                        </p>
+                        <div class="spacer  text-center">
+                            <button ng-click="toDevisParNbPlants()" class="btn btn-lg btn-warning">Faire le devis par Nombre de plants</button>
+                            <button ng-click="toDevisParHectare()" class="btn btn-lg btn-info">Faire le devis par hectare</button>
+                        </div>  
+                        <div class="spacer text-right">
+                                <button ng-click="suivHome()" class="btn btn-lg btn-warning">Souscrire aux Devis Automatiques</button>
+                        </div>                 
+                    </div>
+                    <form ng-show="devisParNbPlants == true"  id="formNouvEntr" class="form-inline" name="formNouvEntr" novalidate>
+                        <table class="table table-striped  spacer">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <a>Activités</a>
+                                        <span></span>
+                                    </th>
+                                    <th>
+                                        <a>Libellé</a>
+                                        <span></span>
+                                    </th>
+                                    <th>
+                                        <a>Nombre de Plants</a>
+                                        <span></span>
+                                    </th>
+                                    <th>
+                                        <a>Selection</a>
+                                        <span></span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr  ng-repeat="activity in allActivities" >
+                                        <td>{{ activity.name }}</td>
+                                        <td>{{ activity.description }}</td>
+                                        <td><input type="number" min="0" value="0"/></td>
+                                        <td><input type="checkbox" value=""></td>
+                                </tr>
+                            </tbody>
+                        </table>  
+                        <div class="spacer">
+                            <button ng-click="toHome()" class="btn btn-info text-center">Retour</button>
+                            <button ng-click="to()" ng-disabled="formNouvEntr.$invalid"  class="btn btn-info pull-right">Etape Suivante</button>
+                        </div>
+                        <div class="spacer">
+                            <pre>{{ allActivities | json }}</pre>
+                        </div>
+                    </form>
+
+                    <form ng-show="devisParHectare == true"  id="formNouvEntr" class="form-inline" name="formNouvEntr" novalidate>
+                        <table class="table table-striped  spacer">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <a>Activités</a>
+                                        <span></span>
+                                    </th>
+                                    <th>
+                                        <a>Libellé</a>
+                                        <span></span>
+                                    </th>
+                                    <th>
+                                        <a>Nombre de Plants</a>
+                                        <span></span>
+                                    </th>
+                                    <th>
+                                        <a>Selection</a>
+                                        <span></span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr  ng-repeat="activity in allActivities" >
+                                        <td>{{ activity.name }}</td>
+                                        <td>{{ activity.description }}</td>
+                                        <td><input type="number" min="0" value="0"/></td>
+                                        <td><input type="checkbox" value=""></td>
+                                </tr>
+                            </tbody>
+                        </table>  
+                        <div class="spacer">
+                            <button ng-click="toHome()" class="btn btn-info text-center">Retour</button>
+                            <button ng-click="to()" ng-disabled="formNouvEntr.$invalid"  class="btn btn-info pull-right">Etape Suivante</button>
+                        </div>
+                        <div class="spacer">
+                            <pre>{{ allActivities | json }}</pre>
+                        </div>
+                    </form>
+
+                    <form ng-show="showConf == true"  id="formConf" name="formConf">
+                        <h2>Comment voulez-vous facturer vos clients ?</h2>
+                        <div class="radio">
+                          <label>
+                            <input ng-model="newEntreprise.conf.type" type="radio" name="optionsRadios" id="optionsRadios1" value="parPlant" checked>
+                            Par Plant
+                          </label>
+                        </div>
+
+                        <div class="radio">
+                          <label>
+                            <input ng-model="newEntreprise.conf.type" type="radio" name="optionsRadios" id="optionsRadios2" value="parSup">
+                            Par Superficie (hectare)
+                          </label>
+                        </div>
+                        <h2>Quelles options voudriez-vous inclure dans vos devis?</h2>
+                        <div class="checkbox">
+                          <label>
+                            <input ng-model="newEntreprise.conf.parGuyot" type="checkbox" value="">
+                            Guyot : Si vous faites les guyots doubles et les guyots simples .
+                          </label>
+                        </div>
+                        <div class="checkbox">
+                          <label>
+                            <input ng-model="newEntreprise.conf.parDep" type="checkbox" value="">
+                            Déplacement : Si vous voulez facturer votre déplacement
+                          </label>
+                        </div>
+                        <div class="checkbox">
+                          <label>
+                            <input ng-model="newEntreprise.conf.parPente" type="checkbox" value="">
+                            Pente : Si vous voulez facturer aussi la pente du terrain. 
+                          </label>
+                        </div>
+                        <div class="spacer">
+                            <pre>{{ activities }}</pre>
+                        </div>
+                        <div class="spacer">
+                            <button ng-click="precConf()" class="btn btn-info text-center">Etape Précédente</button>
+                            <button ng-click="createEntrViticole(newEntreprise)"  class="btn btn-info pull-right">Valider Pour Finir</button>
+                        </div>
+                    </form>
+
+
+                </div>
+            </div>  
+        </div>
+
+
+        <script type="text/javascript" src="/static/lib/jquery.min.js"></script>
+        <script type="text/javascript" src="/static/lib/bootstrap/js/bootstrap.min.js"></script>
+
+        <script type="text/javascript" src="/static/lib/tinymce/tinymce.min.js"></script>
+        <script type="text/javascript" src="/static/lib/angularjs/angular.min.js"></script>
+        <script type="text/javascript" src="/static/lib/angularjs/angular-sanitize.min.js"></script>
+        <script type="text/javascript" src="/static/lib/angularjs/i18n/angular-locale_fr-fr.js"></script>
+        <script type="text/javascript" src="/static/lib/angularjs/angular-cookies.min.js"></script>
+        <script type="text/javascript" src="/static/lib/ui-tinymce.js"></script>
+
+        <script type="text/javascript" src="/static/js/app.js"></script>    
+
+    </body>
+</html>

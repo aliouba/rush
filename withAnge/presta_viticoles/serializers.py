@@ -10,3 +10,7 @@ class CompanySerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Company
 		fields = ("name","description","siret","description")
+class ConfigPrestaViticoleSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = ConfigPrestaViticole
+

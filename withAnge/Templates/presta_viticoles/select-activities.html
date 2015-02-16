@@ -17,8 +17,7 @@
         <![endif]-->
 
     </head>
-    <body ng-app="CreerCompany" ng-controller="creerCompanyCtrl">  
-        {% verbatim %}
+    <body>  
         <nav class="navbar navbar-inverse">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -34,119 +33,43 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav navbar-right">
-                <form class="navbar-form navbar-right" role="search">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="username" placeholder="Identifiant">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="password" placeholder="Mot de Passe">
-                    </div>
-                    <button type="submit" class="btn btn-success">Connexion</button>
-                </form>
               </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
 
-        <div class="container">        
-
-            <div ng-show="showHome == true" class="row-fluid">
-                <p>Un service transparent.Nous vous accompagnons avec la meilleure façon possible afin de pouvoir proposer des devis automatiques à vos clients .Nous n'avez que quatre étapes pour mettre les informations nécessaires pour l'établissement de devis automatiques  .
-                </p>  
-                <div class="spacer text-right">
-                        <button ng-click="suivHome()" class="btn btn-lg btn-warning">Souscrire aux Devis Automatiques</button>
-                </div>                 
-            </div>
-
-            <div class="row-fluid">
-                <div class="spacer">
-                    <form ng-show="showEntr == true"  id="formNouvEntr" class="form-inline" name="formNouvEntr" novalidate>
-                        <table class="table table-striped  spacer">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        <a>Activités</a>
-                                        <span></span>
-                                    </th>
-                                    <th>
-                                        <a>Libellé</a>
-                                        <span></span>
-                                    </th>
-                                    <th>
-                                        <a>Plants</a>
-                                        <span></span>
-                                    </th>
-                                    <th>
-                                        <a>Selection</a>
-                                        <span></span>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr  ng-repeat="activity in allActivities" >
-                                        <td>{{ activity.name }}</td>
-                                        <td>{{ activity.description }}</td>
-                                        <td>{{ activity.price_plant_gd }}</td>
-                                        <td><input type="checkbox" value=""></td>
-                                </tr>
-                            </tbody>
-                        </table>  
-                        <div class="spacer">
-                            <button ng-click="precEntr()" class="btn btn-info text-center">Retour</button>
-                            <button ng-click="suivEntr()" ng-disabled="formNouvEntr.$invalid"  class="btn btn-info pull-right">Etape Suivante</button>
-                        </div>
-                        <div class="spacer">
-                            <pre>{{ allActivities | json }}</pre>
-                        </div>
-                    </form>
-
-
-                    <form ng-show="showConf == true"  id="formConf" name="formConf">
-                        <h2>Comment voulez-vous facturer vos clients ?</h2>
-                        <div class="radio">
-                          <label>
-                            <input ng-model="newEntreprise.conf.type" type="radio" name="optionsRadios" id="optionsRadios1" value="parPlant" checked>
-                            Par Plant
-                          </label>
-                        </div>
-
-                        <div class="radio">
-                          <label>
-                            <input ng-model="newEntreprise.conf.type" type="radio" name="optionsRadios" id="optionsRadios2" value="parSup">
-                            Par Superficie (hectare)
-                          </label>
-                        </div>
-                        <h2>Quelles options voudriez-vous inclure dans vos devis?</h2>
-                        <div class="checkbox">
-                          <label>
-                            <input ng-model="newEntreprise.conf.parGuyot" type="checkbox" value="">
-                            Guyot : Si vous faites les guyots doubles et les guyots simples .
-                          </label>
-                        </div>
-                        <div class="checkbox">
-                          <label>
-                            <input ng-model="newEntreprise.conf.parDep" type="checkbox" value="">
-                            Déplacement : Si vous voulez facturer votre déplacement
-                          </label>
-                        </div>
-                        <div class="checkbox">
-                          <label>
-                            <input ng-model="newEntreprise.conf.parPente" type="checkbox" value="">
-                            Pente : Si vous voulez facturer aussi la pente du terrain. 
-                          </label>
-                        </div>
-                        <div class="spacer">
-                            <pre>{{ activities }}</pre>
-                        </div>
-                        <div class="spacer">
-                            <button ng-click="precConf()" class="btn btn-info text-center">Etape Précédente</button>
-                            <button ng-click="createEntrViticole(newEntreprise)"  class="btn btn-info pull-right">Valider Pour Finir</button>
-                        </div>
-                    </form>
-
-
+        <div class="container"> 
+        {% verbatim %}       
+            <div class="row-fluid"  ng-app="newEstimate" ng-controller="formHomeCtrl" >
+                <div ng-show="showHome == true" class="spacer">
+                    <h2 class="spacer">
+                        <div class="alert alert-info text-center" role="alert">{{ entr.name }}</div>
+                        
+                    </h2>
+                    <p class="spacer" >Un service transparent.Nous vous accompagnons avec la meilleure façon possible afin de pouvoir proposer des devis automatiques à vos clients .Nous n'avez que quatre étapes pour mettre les informations nécessaires pour l'établissement de devis automatiques  .
+                    </p>
+                    <div class="spacer  text-center">
+                        <button ng-show="btParPlts == true" ng-click="toDevisParPlants()" class="btn btn-lg btn-warning">Faire le devis par plants</button>
+                        <button ng-show="btParHa == true" class="btn btn-lg btn-info">  Faire le devis par hectare  </button>
+                    </div>                
                 </div>
-            </div>  
-            {% endverbatim %}
+
+
+                <div ng-show="showformPltsActs == true" class="spacer">
+                    <h2 class="spacer">
+                        <div class="alert alert-info text-center" role="alert">{{ entr.name }}</div>
+                        
+                    </h2>
+                    <p class="spacer" >Un service transparent.Nous vous accompagnons avec la meilleure façon possible afin de pouvoir proposer des devis automatiques à vos clients .Nous n'avez que quatre étapes pour mettre les informations nécessaires pour l'établissement de devis automatiques  .
+                    </p>
+                    <div class="spacer  text-center">
+                        <button ng-show="btParPlts == true"  class="btn btn-lg btn-warning">Faire le devis par plants</button>
+                        <button ng-show="btParHa == true"  class="btn btn-lg btn-info">  Faire le devis par hectare  </button>
+                    </div>                
+                </div>
+
+
+            </div>
+            {% endverbatim %}  
         </div>
 
 
