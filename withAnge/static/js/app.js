@@ -2,26 +2,25 @@ var my_app = angular.module("newEstimate", [ "ngSanitize", "ui.tinymce", "ngCook
 my_app.config(function($httpProvider) {
     $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 });
+ 
 my_app.controller("formHomeCtrl", function($scope, $location, $filter ,$http, $cookies ) {
 	//Par défaut , on montre que la page d'accueil
 	$scope.showHome = true;
-	//ou si on retourne à la page d'acueil
-	$scope.toShowHome = function(){
-		$scope.showHome = true;
-		$scope.showformPltsActs = false;
-	};
+	$scope.showformPltsActs = false;
+	$scope.showformPltsActsParam = false;
 
-	
-	$scope.entr = null;
-    $http.get('/prestaviticoles/api/company/1234567891/?format=json')
-    .success(function(out_data) {
+
+	//Recupération des infos de l'entreprise
+    $http.get('/prestaviticoles/api/company/1234567891/?format=json').success(function(out_data) {
           	$scope.entr = out_data ;
           	console.log($scope.entr);
     });
-	$scope.conf = null;
-    $http.get('/prestaviticoles/api/conf/1234567891/?format=json')
-    .success(function(out_data) {
+    //Recupération des infos de configuration
+    $scope.btParPlts = false;
+    $scope.btParHa = false;
+    $http.get('/prestaviticoles/api/conf/1234567891/?format=json').success(function(out_data) {
 	    $scope.conf = out_data ;
+	    console.log($scope.conf);
 		//bouton ParPlants ou ParHa
 		$scope.btParPlts = false;
 		if($scope.conf.plant == true){
@@ -32,21 +31,27 @@ my_app.controller("formHomeCtrl", function($scope, $location, $filter ,$http, $c
 			$scope.btParHa = true;
 		}
     });
-
-	$scope.allActivities = [];
-    $http.get('/prestaviticoles/api/activities/1234567891/?format=json')
-    .success(function(out_data) {
+    //Recupération des activités
+    $http.get('/prestaviticoles/api/activities/1234567891/?format=json').success(function(out_data) {
         $scope.allActivities = out_data ;
+        console.log($scope.allActivities);
     });
-
-	$scope.showformPltsActs = false;
-	$scope.allActivities = [];
+    ///////////////////Functions//////////////////
+	//Aller -> la page d'acueil
+	$scope.toShowHome = function(){
+		$scope.showHome = true;
+		$scope.showformPltsActsParam = false;
+		$scope.showformPltsActs = false;
+	};
+	$scope.toDevisParPlantsParams = function(){
+		$scope.showHome = false;
+		$scope.showformPltsActsParam = true;
+		$scope.showformPltsActs = false;
+	};
+    //Aller ->  Activities par plant
 	$scope.toDevisParPlants = function(){
 		$scope.showHome = false;
+		$scope.showformPltsActsParam = false;
 		$scope.showformPltsActs = true;
 	};
-    $http.get('/prestaviticoles/api/activities/1234567891/?format=json')
-    .success(function(out_data) {
-        $scope.allActivities = out_data ;
-    });
 });

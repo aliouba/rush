@@ -1,13 +1,18 @@
 {% load i18n %}
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+ {% verbatim %} 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf8" />
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Nouvelle Entreprise</title>
+        <title>Nouvelle Entreprise</title> 
+    </head>
+
+    <body> 
+        
         <link rel="stylesheet" href="/static/lib/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="/static/lib/bootstrap/css/bootstrap-theme.min.css">
 
@@ -15,9 +20,18 @@
         <!--[if lt IE 9]>
             <script src="js/html5shiv.min.js"></script>
         <![endif]-->
+        <script type="text/javascript" src="/static/lib/jquery.min.js"></script>
+        <script type="text/javascript" src="/static/lib/bootstrap/js/bootstrap.min.js"></script>
 
-    </head>
-    <body>  
+        <script type="text/javascript" src="/static/lib/tinymce/tinymce.min.js"></script>
+        <script type="text/javascript" src="/static/lib/angularjs/angular.min.js"></script>
+        <script type="text/javascript" src="/static/lib/angularjs/angular-sanitize.min.js"></script>
+        <script type="text/javascript" src="/static/lib/angularjs/i18n/angular-locale_fr-fr.js"></script>
+        <script type="text/javascript" src="/static/lib/angularjs/angular-cookies.min.js"></script>
+        <script type="text/javascript" src="/static/lib/ui-tinymce.js"></script>
+
+        <script type="text/javascript" src="/static/js/app.js"></script>   
+     
         <nav class="navbar navbar-inverse">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -38,52 +52,102 @@
         </nav>
 
         <div class="container"> 
-        {% verbatim %}       
+             
             <div class="row-fluid"  ng-app="newEstimate" ng-controller="formHomeCtrl" >
                 <div ng-show="showHome == true" class="spacer">
                     <h2 class="spacer">
-                        <div class="alert alert-info text-center" role="alert">{{ entr.name }}</div>
+                        <div ng-show="entr.name" class="alert alert-info text-center" role="alert">{{ entr.name }}</div>
                         
                     </h2>
                     <p class="spacer" >Un service transparent.Nous vous accompagnons avec la meilleure façon possible afin de pouvoir proposer des devis automatiques à vos clients .Nous n'avez que quatre étapes pour mettre les informations nécessaires pour l'établissement de devis automatiques  .
                     </p>
                     <div class="spacer  text-center">
-                        <button ng-show="btParPlts == true" ng-click="toDevisParPlants()" class="btn btn-lg btn-warning">Faire le devis par plants</button>
+                        <button ng-click="toDevisParPlantsParams()" ng-show="btParPlts == true"  class="btn btn-lg btn-warning">Faire le devis par plants</button>
                         <button ng-show="btParHa == true" class="btn btn-lg btn-info">  Faire le devis par hectare  </button>
                     </div>                
                 </div>
 
 
-                <div ng-show="showformPltsActs == true" class="spacer">
-                    <h2 class="spacer">
-                        <div class="alert alert-info text-center" role="alert">{{ entr.name }}</div>
-                        
-                    </h2>
-                    <p class="spacer" >Un service transparent.Nous vous accompagnons avec la meilleure façon possible afin de pouvoir proposer des devis automatiques à vos clients .Nous n'avez que quatre étapes pour mettre les informations nécessaires pour l'établissement de devis automatiques  .
-                    </p>
-                    <div class="spacer  text-center">
-                        <button ng-show="btParPlts == true"  class="btn btn-lg btn-warning">Faire le devis par plants</button>
-                        <button ng-show="btParHa == true"  class="btn btn-lg btn-info">  Faire le devis par hectare  </button>
-                    </div>                
+                <div ng-show="showformPltsActsParam == true" class="spacer">
+                    <form class="form-horizontal" novalidate>
+                        <h2>Guyot Simple ou Guyot Double</h2>
+                        <div class="radio">
+                          <label>
+                            <input type="radio" name="optionsguyot" id="optionsguyot1" value="gs" checked>
+                            Guyot Simple
+                          </label>
+                        </div>
+                        <div class="radio">
+                          <label>
+                            <input type="radio" name="optionsguyot" id="optionsguyot2" value="gd">
+                            Guyot Double
+                          </label>
+                        </div>
+                        <div class="radio disabled">
+                          <label>
+                            <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3" disabled>
+                            Option three is disabled
+                          </label>
+                        </div>
+                        <div class="spacer">
+                            <button ng-click="toShowHome()" class="btn btn-info text-center">Retour</button>
+                            <button ng-click="toDevisParPlants()" class="btn btn-info pull-right">Etape Suivante</button>
+                        </div>
+                        <div class="spacer">
+                            <pre>{{ allActivities | json }}</pre>
+                        </div>
+                    </form>
+
                 </div>
 
 
+                <div ng-show="showformPltsActs == true" class="spacer">
+                    <form class="form-inline" novalidate>
+                        <table class="table table-striped  spacer">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <a>Activités</a>
+                                        <span></span>
+                                    </th>
+                                    <th>
+                                        <a>Libellé</a>
+                                        <span></span>
+                                    </th>
+                                    <th>
+                                        <a>Nombre de Plants</a>
+                                        <span></span>
+                                    </th>
+                                    <th>
+                                        <a>Selection</a>
+                                        <span></span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr  ng-repeat="activity in allActivities" >
+                                        <td>{{ activity.name }}</td>
+                                        <td>{{ activity.description }}</td>
+                                        <td><input type="number" min="0" value="0"/></td>
+                                        <td><input type="checkbox" value=""></td>
+                                </tr>
+                            </tbody>
+                        </table>  
+                        <div class="spacer">
+                            <button ng-click="toDevisParPlantsParams()" class="btn btn-info text-center">Retour</button>
+                            <button ng-click="to()" class="btn btn-info pull-right">Etape Suivante</button>
+                        </div>
+                        <div class="spacer">
+                            <pre>{{ allActivities | json }}</pre>
+                        </div>
+                    </form>
+
+                </div>
+
             </div>
-            {% endverbatim %}  
+            
         </div>
-
-
-        <script type="text/javascript" src="/static/lib/jquery.min.js"></script>
-        <script type="text/javascript" src="/static/lib/bootstrap/js/bootstrap.min.js"></script>
-
-        <script type="text/javascript" src="/static/lib/tinymce/tinymce.min.js"></script>
-        <script type="text/javascript" src="/static/lib/angularjs/angular.min.js"></script>
-        <script type="text/javascript" src="/static/lib/angularjs/angular-sanitize.min.js"></script>
-        <script type="text/javascript" src="/static/lib/angularjs/i18n/angular-locale_fr-fr.js"></script>
-        <script type="text/javascript" src="/static/lib/angularjs/angular-cookies.min.js"></script>
-        <script type="text/javascript" src="/static/lib/ui-tinymce.js"></script>
-
-        <script type="text/javascript" src="/static/js/app.js"></script>    
-
+       
     </body>
+     {% endverbatim %}  
 </html>
