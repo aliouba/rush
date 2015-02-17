@@ -54,4 +54,10 @@ my_app.controller("formHomeCtrl", function($scope, $location, $filter ,$http, $c
 		$scope.showformPltsActsParam = false;
 		$scope.showformPltsActs = true;
 	};
+	// recherche
+
+	$scope.recherche = null;
+	$scope.razRecherche = function() {
+		$scope.recherche = null;
+	}
 });

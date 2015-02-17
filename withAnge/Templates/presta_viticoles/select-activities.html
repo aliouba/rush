@@ -96,6 +96,19 @@
 
 
                 <div ng-show="showformPltsActs == true" class="spacer">
+
+                    <div class="spacer input-group">
+                        <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </div>
+                        <input type="text" ng-model="recherche" class="form-control" placeholder="Rechercher Une activité..."/>
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" ng-click="razRecherche()">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </div>
+                    </div>
+
                     <form id="formPltsActs" name="formPltsActs" class="form-inline" novalidate>
                         <table class="table table-striped  spacer">
                             <thead>
@@ -119,8 +132,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr  ng-repeat="activity in allActivities" >
-                                        <td>{{ activity.name }}</td>
+                                <tr  ng-repeat="activity in allActivities | filter:recherche" >
+                                        <td >{{ activity.name }}</td>
                                         <td>{{ activity.description }}</td>
                                         <td><input class="form-control" type="number" min="0" value="0"/>
                                         </td>
