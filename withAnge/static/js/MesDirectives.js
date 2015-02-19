@@ -4,7 +4,8 @@ angular.module("MesDirectives", [])
 		restrict: "E",
         templateUrl: '/static/directivesHTML/homedevis.html',
         scope: {
-        	email: "="
+        	conf: "=",
+        	detailsCompany: "="
         }
 	}
 })
