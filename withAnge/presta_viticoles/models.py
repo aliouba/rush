@@ -31,7 +31,8 @@ class Employee(models.Model):
         return u"%s %s" % self.firstname,self.lastname
 
 class ConfigPrestaViticole(models.Model):
-    guyot = models.BooleanField(default=False)
+    guyots = models.BooleanField(default=False)
+    guyotd = models.BooleanField(default=False)
     superficie = models.BooleanField(default=False)
     plant = models.BooleanField(default=False)
     plant_manquant = models.BooleanField(default=False)

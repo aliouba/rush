@@ -12,5 +12,23 @@ my_app.controller("formHomeCtrl", function($scope, $location, $filter ,$http, $c
 	//Par défaut , on montre que la page d'accueil
 	$scope.showHome = true;
 	$scope.showformPltsActs = false;
-	$scope.showformPltsActsParam = false
+	$scope.showformPltsActsParam = false;
+	//Aller -> la page d'acueil
+	$scope.toShowHome = function(){
+		$scope.showHome = true;
+		$scope.showformPltsActsParam = false;
+		$scope.showformPltsActs = false;
+	};
+	//Aller > Page de params
+	$scope.toDevisParPlantsParams = function(){
+		$scope.showHome = false;
+		$scope.showformPltsActsParam = true;
+		$scope.showformPltsActs = false;
+	};
+	//Aller -> Activities par plant
+	$scope.toDevisParPlants = function(){
+		$scope.showHome = false;
+		$scope.showformPltsActsParam = false;
+		$scope.showformPltsActs = true;
+	};
 });
