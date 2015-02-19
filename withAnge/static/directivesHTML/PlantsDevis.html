@@ -1,0 +1,61 @@
+                <div class="spacer">
+
+                    <div class="spacer input-group">
+                        <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </div>
+                        <input type="text" ng-model="recherche" class="form-control" placeholder="Rechercher Une activité..."/>
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" ng-click="razRecherche()">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <form id="formPltsActs" name="formPltsActs" class="form-inline" novalidate>
+                        <table class="table table-striped  spacer">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <a>Activités</a>
+                                        <span></span>
+                                    </th>
+                                    <th>
+                                        <a>Libellé</a>
+                                        <span></span>
+                                    </th>
+                                    <th>
+                                        <a>Nombre de Plants</a>
+                                        <span></span>
+                                    </th>
+                                    <th>
+                                        <a>Prix Euro/Plants</a>
+                                        <span></span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr  ng-repeat="activity in activities | filter:recherche" >
+                                        <td >{{ activity.name }}</td>
+                                        <td>{{ activity.description }}</td>
+                                        <td><input class="form-control" type="number" min="0" value="0"/>
+                                        </td>
+                                        <td>
+                                            <input class="form-control"  ng-if="params.optionsguyot == 'gs'" type="number" value="{{ activity.price_plant_gs }}" readonly />
+                                            <input class="form-control"  ng-if="params.optionsguyot == 'gd'" type="number" value="{{ activity.price_plant_gd }}" readonly />
+                                            
+                                        </td>
+
+                                </tr>
+                            </tbody>
+                        </table>  
+                        <div class="spacer">
+                            <button ng-click="toDevisParPlantsParams()" class="btn btn-info text-center">Retour</button>
+                            <button ng-click="to()" class="btn btn-info pull-right" ng-disabled="formPltsActs.$pristine">Etape Suivante</button>
+                        </div>
+                        <div class="spacer">
+                            <pre>{{ activities }}</pre>
+                        </div>
+                    </form>
+
+                </div>

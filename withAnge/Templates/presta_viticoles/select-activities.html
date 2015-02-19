@@ -34,8 +34,26 @@
         <div class="container"> 
              
             <div class="row-fluid"  ng-app="newEstimate" ng-controller="formHomeCtrl">
-                <contenu-home-devis ng-show="showHome == true" conf="conf" entr="detailsCompany" selectparam="toDevisParPlantsParams()"></contenu-home-devis>
-                <contenu-params-plants ng-show="showformPltsActsParam == true" conf="conf"></contenu-params-plants>
+                <contenu-home-devis 
+                    ng-show="showHome == true" 
+                    conf="conf" 
+                    entr="detailsCompany" 
+                    selectparam="toDevisParPlantsParams()">
+                </contenu-home-devis>
+
+
+                <contenu-params-plants 
+                    ng-show="showformPltsActsParam == true" 
+                    conf="conf" 
+                    selectplant="toDevisParPlants" 
+                    selecthome="toShowHome()">
+                </contenu-params-plants>
+
+                
+                <contenu-plants 
+                    ng-show="showformPltsActs == true"  
+                    activities="allActivities">
+                </contenu-plants>
             </div>
             
         </div>
