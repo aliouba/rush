@@ -6,8 +6,7 @@ angular.module("MesDirectives", [])
         scope: {
         	entr: "=",        	
         	conf: "=",
-        	showHomeDir: "=",
-        	montrerParamsPlant: "="
+        	selectparam: "&"
         }
 	}
 })
