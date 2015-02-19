@@ -5,15 +5,9 @@ angular.module("MesDirectives", [])
         templateUrl: '/static/directivesHTML/homeDevis.html',
         scope: {
         	entr: "=",        	
-        	conf: "="
-        },
-        controller: function($scope) {
-			//Aller > Page de params
-			$scope.toDevisParPlantsParams = function(){
-				$scope.showHome = false;
-				$scope.showformPltsActsParam = true;
-				$scope.showformPltsActs = false;
-			};
+        	conf: "=",
+        	showHomeDir: "=",
+        	montrerParamsPlant: "="
         }
 	}
 })
@@ -22,6 +16,7 @@ angular.module("MesDirectives", [])
 		restrict: "E",
         templateUrl: '/static/directivesHTML/paramsPlantDevis.html',
         scope: {
+        	conf: "="
         }
 	}
 })
