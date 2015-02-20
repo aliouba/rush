@@ -50,8 +50,13 @@
                             </tbody>
                         </table>  
                         <div class="spacer">
-                            <button ng-click="toDevisParPlantsParams()" class="btn btn-info text-center">Retour</button>
-                            <button ng-click="to()" class="btn btn-info pull-right" ng-disabled="formPltsActs.$pristine">Etape Suivante</button>
+                            <button ng-click="selectparam()" 
+                                class="btn btn-info text-center">Revenir au Choix Type de Guyot
+                            </button>
+                            <button ng-click="to()" 
+                                class="btn btn-info pull-right" 
+                                ng-disabled="formPltsActs.$pristine">Valider
+                            </button>
                         </div>
                         <div class="spacer">
                             <pre>{{ activities }}</pre>

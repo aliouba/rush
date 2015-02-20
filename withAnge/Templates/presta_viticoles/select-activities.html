@@ -45,14 +45,15 @@
                 <contenu-params-plants 
                     ng-show="showformPltsActsParam == true" 
                     conf="conf" 
-                    selectplant="toDevisParPlants" 
-                    selecthome="toShowHome()">
+                    selecthome="toShowHome()"
+                    selectplant="toDevisParPlants()" >
                 </contenu-params-plants>
 
                 
                 <contenu-plants 
                     ng-show="showformPltsActs == true"  
-                    activities="allActivities">
+                    activities="allActivities"
+                    selectparam="toDevisParPlantsParams()">
                 </contenu-plants>
             </div>
             
