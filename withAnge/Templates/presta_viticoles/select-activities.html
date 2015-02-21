@@ -38,23 +38,27 @@
                     ng-show="showHome == true" 
                     conf="conf" 
                     entr="detailsCompany" 
-                    selectparam="toDevisParPlantsParams()">
+                    selectparamplant="toDevisParams('plant')"
+                    selectparamsuperficie="toDevisParams('superficie')">
                 </contenu-home-devis>
 
 
-                <contenu-params-plants 
+                <contenu-params
                     ng-show="showformPltsActsParam == true" 
                     conf="conf" 
                     selecthome="toShowHome()"
-                    selectplant="toDevisParPlants()" >
-                </contenu-params-plants>
+                    selectdevis="toDevis()"
+                    paramsuperficie="parSuperficie" >
+                </contenu-params>
 
                 
                 <contenu-plants 
                     ng-show="showformPltsActs == true"  
                     activities="allActivities"
-                    selectparam="toDevisParPlantsParams()">
+                    selectparam="toDevisParams(typePlOuSup)">
                 </contenu-plants>
+                <pre class="well"> {{ typePlOuSup }} </pre>
+
             </div>
             
         </div>

@@ -6,18 +6,22 @@ angular.module("MesDirectives", [])
                 scope: {
                 	entr: "=",        	
                 	conf: "=",
-                	selectparam: "&"
+                	selectparamplant: "&",
+                        selectparamsuperficie: "&"
                 }
 	}
 })
-.directive("contenuParamsPlants", function() {
+.directive("contenuParams", function() {
 	return {
 		restrict: "E",
                 templateUrl: '/static/directivesHTML/paramsPlantDevis.html',
                 scope: {
                 	conf: "=",
                 	selecthome: "&",
-                	selectplant: "&"
+                	selectdevis: "&",
+                        paramsuperficie: "=",
+                        params: "="
+
                 }
 	}
 })

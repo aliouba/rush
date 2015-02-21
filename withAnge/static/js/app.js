@@ -13,6 +13,10 @@ my_app.controller("formHomeCtrl", function($scope, $location, $filter ,$http, $c
 	$scope.showHome = true;
 	$scope.showformPltsActs = false;
 	$scope.showformPltsActsParam = false;
+	///Superficie ou plant/////
+	$scope.parPlant = false;
+	$scope.parSuperficie = false;	
+	$scope.typePlOuSup = null;
 	//Aller -> la page d'acueil
 	$scope.toShowHome = function(){
 		$scope.showHome = true;
@@ -20,13 +24,23 @@ my_app.controller("formHomeCtrl", function($scope, $location, $filter ,$http, $c
 		$scope.showformPltsActs = false;
 	};
 	//Aller > Page de params
-	$scope.toDevisParPlantsParams = function(){
+	$scope.toDevisParams = function(typeDevis){
+		if(typeDevis == "plant"){
+			$scope.parPlant = true;
+			$scope.parSuperficie = false;	
+			$scope.typePlOuSup = "plant";
+		}
+		else{
+			$scope.parSuperficie = true;
+			$scope.parPlant = false;
+			$scope.typePlOuSup = "Superficie";
+		}
 		$scope.showHome = false;
 		$scope.showformPltsActsParam = true;
 		$scope.showformPltsActs = false;
 	};
 	//Aller -> Activities par plant
-	$scope.toDevisParPlants = function(){
+	$scope.toDevis = function(){
 		$scope.showHome = false;
 		$scope.showformPltsActsParam = false;
 		$scope.showformPltsActs = true;

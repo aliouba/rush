@@ -85,7 +85,11 @@ class Estimate(models.Model):
 
 class Benefit(models.Model):
     nb = models.FloatField(null=True)
-    unit_price = models.DecimalField(max_digits=10, decimal_places=3,null=True)
+    largeur_entre_rangs = models.DecimalField(max_digits=10, decimal_places=3,null=True)
+    distance_entre_ceps = models.DecimalField(max_digits=10, decimal_places=3,null=True)
+    surface = models.DecimalField(max_digits=10, decimal_places=3,null=True)
+    surface_manquant = models.DecimalField(max_digits=10, decimal_places=3,null=True)
+    unit_price = models.DecimalField(max_digits=10, decimal_places=3,null=True)    
     unit_type = models.CharField(max_length=45)
     price_with_tax = models.DecimalField(max_digits=10, decimal_places=3, null=True)
     price_without_tax = models.DecimalField(max_digits=10, decimal_places=0 ,null=True)
