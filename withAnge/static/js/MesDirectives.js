@@ -14,7 +14,7 @@ angular.module("MesDirectives", [])
 .directive("contenuParams", function() {
 	return {
 		restrict: "E",
-                templateUrl: '/static/directivesHTML/paramsPlantDevis.html',
+                templateUrl: '/static/directivesHTML/paramsDevis.html',
                 scope: {
                 	conf: "=",
                 	selecthome: "&",
@@ -30,7 +30,7 @@ angular.module("MesDirectives", [])
 .directive("contenuPlants", function() {
 	return {
 		restrict: "E",
-                templateUrl: '/static/directivesHTML/PlantsDevis.html',
+                templateUrl: '/static/directivesHTML/devis.html',
                 scope: {
                 	activities: "=",
                 	selectparam: "&"
