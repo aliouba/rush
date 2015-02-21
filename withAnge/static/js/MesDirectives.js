@@ -19,9 +19,11 @@ angular.module("MesDirectives", [])
                 	conf: "=",
                 	selecthome: "&",
                 	selectdevis: "&",
-                        paramsuperficie: "=",
-                        params: "="
+                        paramsuperficie: "="
 
+                },
+                controller: function($scope) {
+                        $scope.params = {};
                 }
 	}
 })
