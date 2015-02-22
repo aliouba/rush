@@ -9,11 +9,6 @@ from rest_framework.permissions import IsAuthenticated
 
 
 def make_estimate(request,siret):
-    print "add company "
-    if request.method == 'POST':
-        print "form valided"       
-    else:
-        print "Incorrect "
     return render(request, 'select-activities.html')    
 class ActivitiesList(APIView):
     """
