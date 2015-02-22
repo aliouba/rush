@@ -10,6 +10,9 @@ angular.module("ActivityServiceMock", [])
         },
         getActivities: function (siret) {
            return $resource('/prestaviticoles/api/activities/:siret/?format=json',{siret:siret});
+        },
+        getGroups: function (siret) {
+           return $resource('/prestaviticoles/api/group_activities/:siret/?format=json',{siret:siret});
         }
     }
 })  

@@ -8,5 +8,6 @@ urlpatterns = patterns('',
 	url(r'^api/company/(?P<siret>[0-9]+)/$', CompanyDetail.as_view()),
     url(r'^api/conf/(?P<siret>[0-9]+)/$', ConfDetail.as_view()),
     url(r'^api/activities/(?P<siret>[0-9]+)/$', ActivitiesList.as_view()),
+    url(r'^api/group_activities/(?P<siret>[0-9]+)/$', ActivitiesGroupList.as_view()),
     url(r'^make_estimate/(?P<siret>[0-9]+)/$', make_estimate, name='add_estimate'),
 )
