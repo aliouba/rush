@@ -88,14 +88,6 @@ class ActivitiesGroupList(APIView):
     def get(self, request, siret , format=None):
         company = Company.objects.filter(siret=siret)[0]
         groups = ActivityGroup.objects.all()
-        print groups
         activities = ActivityPrestaViticole.objects.filter(company_id=company.id)
-        serializer = GroupActivitiesSerializer(groups, many=True)
+        serializer = GroupActivitiesSerializer(groups)
         return Response(serializer.data)
-
-    def post(self, request,siret, format=None):
-        serializer = GroupActivitiesSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
