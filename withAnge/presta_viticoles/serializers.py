@@ -13,7 +13,7 @@ class ConfigPrestaViticoleSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = ConfigPrestaViticole
 
-class GroupActivitiesSerializer(serializers.ModelSerializer):
-    activities = ActivitiesSerializer(many=True,read_only=True)
+class GroupActivitiesSerializer(serializers.HyperlinkedModelSerializer):
+    groups = serializers.PrimaryKeyRelatedField(read_only=True, many=True)
     class Meta:
         model = ActivityGroup
