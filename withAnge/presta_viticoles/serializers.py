@@ -5,7 +5,6 @@ from presta_viticoles.models import *
 class ActivitiesSerializer(serializers.ModelSerializer):
     class Meta:
 		model = ActivityPrestaViticole
-		depth = 1
 class CompanySerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Company
@@ -15,7 +14,7 @@ class ConfigPrestaViticoleSerializer(serializers.ModelSerializer):
 		model = ConfigPrestaViticole
 
 class GroupActivitiesSerializer(serializers.ModelSerializer):
-    activities = ActivitiesSerializer(read_only=True, many=True)
+    groups = ActivitiesSerializer(read_only=True, many=True)
     class Meta:
         model = ActivityGroup
         fields =("name","groups")
