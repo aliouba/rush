@@ -51,7 +51,7 @@ class ActivityGroup(models.Model):
         return u"%s" % self.name
 
 class ActivityPrestaViticole(models.Model):
-    group = models.ForeignKey(ActivityGroup)
+    group = models.ForeignKey(ActivityGroup, related_name='groups')
     name = models.CharField(max_length=255,null=True)
     description = models.CharField(max_length=255,null=True)
     price_plant_gd = models.DecimalField(max_digits=10, decimal_places=3,null=True)
