@@ -87,8 +87,6 @@ class ActivitiesGroupList(APIView):
     """
     def get(self, request, siret , format=None):
         company = Company.objects.filter(siret=siret)[0]
-        activities = ActivityPrestaViticole.filter(company_id=company.id)
-
-        groups = ActivityGroup.objects.filter(groupcat__company=company.id)
+        groups = ActivityGroup.objects.all()
         serializer = GroupActivitiesSerializer(groups,many=True)
         return Response(serializer.data)
