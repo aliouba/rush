@@ -57,7 +57,12 @@
                     groups="groups"
                     selectparam="toDevisParams(typePlOuSup)">
                 </contenu-plants>
-                
+
+   <select ng-model="selectedItem" ng-options="item as item.name for item in items"></select>
+   <pre>{{selectedItem | json}}</pre>  
+
+   <select ng-model="selectedaItem" ng-options="item as item.name for item in groups.groups"></select>
+   <pre>{{selectedaItem | json}}</pre>                
                 <pre class="well">{{ groups }}</pre>
                 <pre class="well">{{ allActivities }}</pre>
 

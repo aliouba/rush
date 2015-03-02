@@ -46,4 +46,9 @@ my_app.controller("formHomeCtrl", function($scope, $location, $filter ,$http, $c
 		$scope.showformPltsActsParam = false;
 		$scope.showformPltsActs = true;
 	};
+  $scope.items = [
+     { id: 1, name: 'foo' },
+     { id: 2, name: 'bar' },
+     { id: 3, name: 'blah' }
+   ];
 });
