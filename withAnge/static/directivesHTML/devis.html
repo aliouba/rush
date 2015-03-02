@@ -35,9 +35,15 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr  ng-repeat="activity in activities | filter:recherche" >
-                                        <td >{{ activity.name }}</td>
-                                        <td>{{ activity.description }}</td>
+                                <tr  ng-repeat="group in groups | filter:recherche" >
+                                        <td >{{ group.name }}</td>
+                                        <td>
+                                            <select>
+                                                <option   ng-repeat="activity in group.groups | filter:recherche">
+                                                    {{ activity.description }}
+                                                </option>
+                                            </select>
+                                        </td>
                                         <td><input class="form-control" type="number" min="0" value="0"/>
                                         </td>
                                         <td>

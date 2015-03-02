@@ -32,7 +32,7 @@ angular.module("MesDirectives", [])
 		restrict: "E",
                 templateUrl: '/static/directivesHTML/devis.html',
                 scope: {
-                	activities: "=",
+                	groups: "=",
                 	selectparam: "&"
                 }
 	}
