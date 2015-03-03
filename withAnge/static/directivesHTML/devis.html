@@ -38,11 +38,11 @@
                                 <tr  ng-repeat="group in groups | filter:recherche" >
                                         <td >{{ group.name }}</td>
                                         <td>
-                                            <select onChange="selectActivity(groupId,activityId)">
-                                                <option   ng-repeat="activity in group.groups | filter:recherche">
-                                                    {{ activity.description }}
-                                                </option>
+                                            <select 
+                                                    ng-model="selectedaItem" 
+                                                    ng-options="activity as activity.descriptionc for activity in group.groups">
                                             </select>
+                                           
                                         </td>
                                         <td><input class="form-control" type="number" min="0" value="0"/>
                                         </td>
@@ -55,7 +55,7 @@
                                 </tr>
                             </tbody>
                         </table>
-
+                         <pre>aaaa:{{selectedaItem | json}}</pre> 
                         <div class="spacer">
                             <button ng-click="selectparam()" 
                                 class="btn btn-info text-center">Revenir au Choix Type de Guyot
