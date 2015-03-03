@@ -17,4 +17,3 @@ class GroupActivitiesSerializer(serializers.ModelSerializer):
     groups = ActivitiesSerializer(read_only=True, many=True)
     class Meta:
         model = ActivityGroup
-        fields =("name","groups")

@@ -39,8 +39,8 @@
                                         <td >{{ group.name }}</td>
                                         <td>
                                             <select 
-                                                    ng-model="selectedaItem" 
-                                                    ng-options="activity as activity.descriptionc for activity in group.groups">
+                                                    ng-model="selectedItem"
+                                                    ng-options="activity as activity.description for activity in group.groups">
                                             </select>
                                            
                                         </td>
@@ -55,8 +55,8 @@
                                 </tr>
                             </tbody>
                         </table>
-                         <pre>aaaa:{{selectedaItem | json}}</pre> 
                         <div class="spacer">
+                            aaaaaaaaa: {{ selectedItem }}
                             <button ng-click="selectparam()" 
                                 class="btn btn-info text-center">Revenir au Choix Type de Guyot
                             </button>
@@ -66,5 +66,4 @@
                             </button>
                         </div>
                     </form>
-
                 </div>
