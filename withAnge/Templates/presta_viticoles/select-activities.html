@@ -55,14 +55,11 @@
                 <contenu-plants 
                     ng-show="showformPltsActs == true"  
                     groups="groups"
+                    activities ="allActivities"
                     selectparam="toDevisParams(typePlOuSup)">
                 </contenu-plants>
 
-   <select ng-model="selectedItem" ng-options="item as item.name for item in items"></select>
-   <pre>{{selectedItem | json}}</pre>  
-              
                 <pre class="well">{{ groups }}</pre>
-                <pre class="well">{{ groupNet }}</pre>
 
             </div>
             
