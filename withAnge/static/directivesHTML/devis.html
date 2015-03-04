@@ -38,10 +38,9 @@
                                 <tr  ng-repeat="group in groups | filter:recherche" >
                                         <td >{{ group.name }}</td>
                                         <td>
-                                            <select ng-model="ass.groups">
-                                                <option ng-repeat="activity in group.groups">
-                                                    {{ activity.description }}
-                                                </option> 
+                                            <select ng-model="activity.description"
+                                                    ng-options=" activity as activity.description for activity in group.groups" 
+                                                    ng-change="selectOption(group.id,activity.id)">
                                             </select>
                                            
                                         </td>
@@ -65,6 +64,6 @@
                                 ng-disabled="formPltsActs.$pristine">Valider
                             </button>
                         </div>
-                        aaa: {{ ass }}
+                        aaa: {{ selectedItem }}
                     </form>
                 </div>
