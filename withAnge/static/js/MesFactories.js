@@ -12,7 +12,9 @@ angular.module("ActivityServiceMock", [])
            return $resource('/prestaviticoles/api/activities/:siret/',{siret:siret});
         },
         getGroups: function (siret) {
-           return $resource('/prestaviticoles/api/group_activities/:siret/',{siret:siret});
+           return $resource('/prestaviticoles/api/group_activities/:siret/?format=json',
+              {siret:siret}
+            );  
         },
         selectActivity: function(goupID,activityID){
           eltsEnvoyes.emails.forEach(function(email) {
