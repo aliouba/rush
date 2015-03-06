@@ -38,13 +38,9 @@
                                 <tr  ng-repeat="group in groups | filter:recherche" >
                                         <td >{{ group.name }}</td>
                                         <td>
-                                            <select ng-model="group.name" 
-                                                    ng-change="selectOption(group.id,activity.id)"> 
-                                                    <option ng-repeat="activity in group.groups">
-                                                        {{activity.description}}
-                                                    </option>
+                                           <select ng-options="activity.description for activity in group.groups" 
+                                                    ng-change="selectOption({{group.id}},{{activity.id}})">
                                             </select>
-                                           
                                         </td>
                                         <td><input class="form-control" type="number" min="0" value="0"/>
                                         </td>

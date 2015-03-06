@@ -8,12 +8,9 @@ my_app.controller("formHomeCtrl", function($scope, $location, $filter ,$http, $c
 	$scope.detailsCompany = activitiesService.getEntrDetails(1234567891).get();
 	$scope.conf = activitiesService.getEntrConf(1234567891).get();
 	$scope.allActivities = activitiesService.getActivities(1234567891).query();	
-	$scope.groups = activitiesService.getGroups(1234567891).query(function(){
-		var nets = $scope.groups;
-	}
-	);
+	$scope.groups = activitiesService.getGroups(1234567891).query();
 	/////////////////////////////////////////
-	console.log($scope.nets);
+
 	///////////////////////////////////////////
 	$scope.selectOption = function(groupID,activityID){
 		alert(groupID +"ffffffffffff" + activityID);

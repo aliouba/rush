@@ -35,6 +35,11 @@ angular.module("MesDirectives", [])
                 	groups: "=",
                 	selectparam: "&",
                         activities: "="
+                },
+                controller: function($scope) {
+                        $scope.selectOption = function(groupID,activityID){
+                                alert(groupID +"ffffffffffff" + activityID);
+                        };
                 }
 	}
 })
