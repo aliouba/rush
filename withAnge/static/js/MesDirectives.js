@@ -7,24 +7,28 @@ angular.module("MesDirectives", [])
                 	entr: "=",        	
                 	conf: "=",
                 	selectparamplant: "&",
-                        selectparamsuperficie: "&"
+                    selectparamsuperficie: "&"
                 }
 	}
 })
 .directive("contenuParams", function() {
 	return {
 		restrict: "E",
-                templateUrl: '/static/directivesHTML/paramsDevis.html',
-                scope: {
-                	conf: "=",
-                	selecthome: "&",
-                	selectdevis: "&",
-                        paramsuperficie: "="
+        templateUrl: '/static/directivesHTML/paramsDevis.html',
+        scope: {
+              	conf: "=",
+               	selecthome: "&",
+                todevis: "&",
+                paramsuperficie: "=",
+                nbplants: "=",
+                showhome: "=",
+                showformpltsactsparam: "=",
+                showformpltsacts: "="
 
-                },
-                controller: function($scope) {
-                        $scope.params = {};
-                }
+        },
+        controller: function($scope) {
+
+        }
 	}
 })
 .directive("contenuPlants", function() {
@@ -34,11 +38,39 @@ angular.module("MesDirectives", [])
                 scope: {
                 	groups: "=",
                 	selectparam: "&",
-                        activities: "="
+                    devisparsup: "=",
+                    devisparplant: "=",
+                    activities: "="
                 },
                 controller: function($scope) {
-                        $scope.selectOption = function(groupID,activityID){
-                                alert(groupID +"ffffffffffff" + activityID);
+                        $scope.nbplants = 0;
+                        $scope.benefits = [];
+                        $scope.selectBenefit = function(groupID,activityID,nbPlants){
+                                $scope.benefitsStatus = false;
+                                for (var i = 0; i < $scope.benefits.length  ; i++) {
+                                        if( $scope.benefits[i].group ==  groupID){
+                                            $scope.benefits[i].activity = activityID;
+                                            $scope.benefits[i].plants = nbPlants;
+                                            $scope.benefitsStatus = true;
+                                        }
+                                };
+                                if($scope.benefitsStatus == false){
+                                        $scope.oneBenefit = {group:groupID,activity:activityID,plants:nbPlants};
+                                        $scope.benefits.push($scope.oneBenefit);
+                                }
+                        };
+                        $scope.updateNbPlants = function(groupID,nbPlants){
+                                $scope.benefitsStatus = false;
+                                for (var i = 0; i < $scope.benefits.length  ; i++) {
+                                        if( $scope.benefits[i].group ==  groupID){
+                                            $scope.benefits[i].plants = nbPlants;
+                                            $scope.benefitsStatus = true;
+                                        }
+                                };
+                                if($scope.benefitsStatus == false){
+                                        $scope.oneBenefit = {group:groupID,activity:"",plants:nbPlants};
+                                        $scope.benefits.push($scope.oneBenefit);
+                                }
                         };
                 }
 	}

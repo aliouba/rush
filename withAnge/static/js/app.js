@@ -10,11 +10,8 @@ my_app.controller("formHomeCtrl", function($scope, $location, $filter ,$http, $c
 	$scope.allActivities = activitiesService.getActivities(1234567891).query();	
 	$scope.groups = activitiesService.getGroups(1234567891).query();
 	/////////////////////////////////////////
-
 	///////////////////////////////////////////
-	$scope.selectOption = function(groupID,activityID){
-		alert(groupID +"ffffffffffff" + activityID);
-	}
+
 
 	//Par défaut , on montre que la page d'accueil
 	$scope.showHome = true;
@@ -24,6 +21,8 @@ my_app.controller("formHomeCtrl", function($scope, $location, $filter ,$http, $c
 	$scope.parPlant = false;
 	$scope.parSuperficie = false;	
 	$scope.typePlOuSup = null;
+	//Nombre de plants
+	$scope.nbPlants= 0;
 	//Aller -> la page d'acueil
 	$scope.toShowHome = function(){
 		$scope.showHome = true;
@@ -47,14 +46,26 @@ my_app.controller("formHomeCtrl", function($scope, $location, $filter ,$http, $c
 		$scope.showformPltsActs = false;
 	};
 	//Aller -> Activities par plant
-	$scope.toDevis = function(){
-		$scope.showHome = false;
-		$scope.showformPltsActsParam = false;
-		$scope.showformPltsActs = true;
-	};
-  $scope.items = [
-     { id: 1, name: 'foo' },
-     { id: 2, name: 'bar' },
-     { id: 3, name: 'blah' }
-   ];
+                    $scope.toDevis = function(){
+                        console.log($scope.params);
+                        if($scope.parSuperficie == true){
+                            if($scope.params.optionssuperficie || $scope.params.optionsdistceps || $scope.params.optionsdistrangs){
+                                console.log($scope.params.optionssuperficie);
+                                $scope.nbPlants = $scope.params.optionssuperficie / ( $scope.params.optionsdistceps * $scope.params.optionsdistrangs) ;
+                                $scope.showHome = false;
+                                $scope.showformPltsActsParam = false;
+                                $scope.showformPltsActs = true;
+                            }
+                            else{
+
+                            }
+
+                        }
+                        else{
+                                $scope.showHome = false;
+                                $scope.showformPltsActsParam = false;
+                                $scope.showformPltsActs = true;
+                        }
+                    };
+
 });

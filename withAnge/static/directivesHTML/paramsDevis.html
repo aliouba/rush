@@ -24,7 +24,7 @@
                                         id="inputsuperficie"
                                         value="0"
                                         ng-model="params.optionssuperficie" 
-                                    />
+                                    required/>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -36,7 +36,7 @@
                                         id="inputdistanceps" 
                                         value="0"
                                         ng-model="params.optionsdistceps" 
-                                    />
+                                    required/>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -48,24 +48,21 @@
                                         id="inputdistancerangs"
                                         value="0"
                                         ng-model="params.optionsdistrangs" 
-                                    />
+                                    required/>
                                 </div>
                             </div>
-                            <span class="text-primary pull-right">Nombre de Plants Correspondant : </span>
                         </div>
 
                         <div class="spacer">
                             <button ng-click="selecthome()" 
                                 class="btn btn-info text-center">Revenir au Début
                             </button>
-                            <button ng-click="selectdevis()" 
+                            <button ng-click="todevis()" 
                                 class="btn btn-info pull-right"
-                                ng-disabled="formPltsActsParam.$pristine">Choisir vos prestations
+                                ng-disabled="formPltsActsParam.$invalid">Choisir vos prestations
                             </button>
                         </div>
-                        <div class="spacer">
-                                            <pre class="well"> {{ params }} </pre>
-                        </div>
                     </form>
+                    {{ params}}
 
                 </div>

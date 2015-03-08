@@ -36,23 +36,33 @@
                             </thead>
                             <tbody>
                                 <tr  ng-repeat="group in groups | filter:recherche" >
-                                        <td >{{ group.name }}</td>
+                                        <td>{{ group.name }}</td>
                                         <td>
-                                           <select ng-options="activity.description for activity in group.groups" 
-                                                    ng-change="selectOption({{group.id}},{{activity.id}})">
+                                           <select ng-model="activitySelected"  
+                                                    ng-change="selectBenefit(group.id,activitySelected,nbplants)">
+                                                <option ng-repeat="activity in group.groups" value="{{activity.id}}" >
+                                                    {{activity.description}}
+                                                </option>
                                             </select>
                                         </td>
-                                        <td><input class="form-control" type="number" min="0" value="0"/>
+                                        <td><input ng-model="nbplants" 
+                                                    ng-change="updateNbPlants(group.id,nbplants)" 
+                                                    class="form-control" 
+                                                    type="number" 
+                                                    min="0" 
+                                                    value="0"
+                                            />
                                         </td>
                                         <td>
-                                            <input class="form-control"  ng-if="params.optionsguyot == 'gs'" type="number" value="{{ activity.price_plant_gs }}" readonly />
-                                            <input class="form-control"  ng-if="params.optionsguyot == 'gd'" type="number" value="{{ activity.price_plant_gd }}" readonly />
-                                            
+                                            <input  class="form-control"  ng-if="params.optionsguyot == 'gs'" type="number" ng-model="pricePlants" value="{{ activity.price_plant_gs }}" readonly />
+                                            <input class="form-control"  ng-if="params.optionsguyot == 'gd'" type="number" ng-model="pricePlantd"  value="{{ activity.price_plant_gd }}" readonly />
                                         </td>
 
                                 </tr>
                             </tbody>
                         </table>
+                        <pre class="well">Devis par Sup : {{ devisparsup }}</pre>
+                        <pre class="well">Devis par plant : {{ devisparplant }}</pre>
                         <div class="spacer">
                             <button ng-click="selectparam()" 
                                 class="btn btn-info text-center">Revenir au Choix Type de Guyot
@@ -62,6 +72,6 @@
                                 ng-disabled="formPltsActs.$pristine">Valider
                             </button>
                         </div>
-                        aaa: {{ selectedItem }}
+                        aaa: {{ benefits }}
                     </form>
                 </div>

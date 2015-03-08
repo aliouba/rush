@@ -45,21 +45,22 @@
 
                 <contenu-params
                     ng-show="showformPltsActsParam == true" 
-                    conf="conf" 
+                    conf="conf"
                     selecthome="toShowHome()"
-                    selectdevis="toDevis()"
-                    paramsuperficie="parSuperficie" >
+                    todevis="toDevis()" >
                 </contenu-params>
 
                 
                 <contenu-plants 
                     ng-show="showformPltsActs == true"  
-                    groups="groups"
+                    groups="groups" 
+                    devisparsup="parSuperficie" 
+                    devisparplant="parPlant" 
                     activities ="allActivities"
                     selectparam="toDevisParams(typePlOuSup)">
                 </contenu-plants>
 
-                <pre class="well">{{ groups }}</pre>
+                <pre class="well">{{ params.optionssuperficie }}</pre>
 
             </div>
             
