@@ -20,6 +20,7 @@ angular.module("MesDirectives", [])
                	selecthome: "&",
                 todevis: "&",
                 paramsuperficie: "=",
+                params: "=",
                 nbplants: "=",
                 showhome: "=",
                 showformpltsactsparam: "=",
@@ -27,7 +28,27 @@ angular.module("MesDirectives", [])
 
         },
         controller: function($scope) {
+                    $scope.toDevis = function(){
+                        console.log($scope.params);
+                        if($scope.parSuperficie == true){
+                            if($scope.params.optionssuperficie || $scope.params.optionsdistceps || $scope.params.optionsdistrangs){
+                                console.log($scope.params.optionssuperficie);
+                                $scope.nbPlants = $scope.params.optionssuperficie / ( $scope.params.optionsdistceps * $scope.params.optionsdistrangs) ;
+                                $scope.showHome = false;
+                                $scope.showformPltsActsParam = false;
+                                $scope.showformPltsActs = true;
+                            }
+                            else{
 
+                            }
+
+                        }
+                        else{
+                                $scope.showHome = false;
+                                $scope.showformPltsActsParam = false;
+                                $scope.showformPltsActs = true;
+                        }
+                    };
         }
 	}
 })

@@ -46,26 +46,6 @@ my_app.controller("formHomeCtrl", function($scope, $location, $filter ,$http, $c
 		$scope.showformPltsActs = false;
 	};
 	//Aller -> Activities par plant
-                    $scope.toDevis = function(){
-                        console.log($scope.params);
-                        if($scope.parSuperficie == true){
-                            if($scope.params.optionssuperficie || $scope.params.optionsdistceps || $scope.params.optionsdistrangs){
-                                console.log($scope.params.optionssuperficie);
-                                $scope.nbPlants = $scope.params.optionssuperficie / ( $scope.params.optionsdistceps * $scope.params.optionsdistrangs) ;
-                                $scope.showHome = false;
-                                $scope.showformPltsActsParam = false;
-                                $scope.showformPltsActs = true;
-                            }
-                            else{
 
-                            }
-
-                        }
-                        else{
-                                $scope.showHome = false;
-                                $scope.showformPltsActsParam = false;
-                                $scope.showformPltsActs = true;
-                        }
-                    };
 
 });
