@@ -1,13 +1,12 @@
 var my_app = angular.module("newEstimate", [ "ngSanitize","ngResource", "ngRoute","ui.tinymce", "ngCookies" ,"ActivityServiceMock","MesDirectives"]);
 my_app.config(function($httpProvider,$resourceProvider) {
-    $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+	$httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 });
- 
+
 my_app.controller("formHomeCtrl", function($scope, $location, $filter ,$http, $cookies,activitiesService ) {
 	///Données///////////
 	$scope.detailsCompany = activitiesService.getEntrDetails(1234567891).get();
 	$scope.conf = activitiesService.getEntrConf(1234567891).get();
-	$scope.allActivities = activitiesService.getActivities(1234567891).query();	
 	$scope.groups = activitiesService.getGroups(1234567891).query();
 	/////////////////////////////////////////
 	///////////////////////////////////////////
@@ -46,24 +45,24 @@ my_app.controller("formHomeCtrl", function($scope, $location, $filter ,$http, $c
 		$scope.showformPltsActs = false;
 	};
 	//Aller -> Activities par plant
-                    $scope.toDevis = function(){
-                        if($scope.parSuperficie == true){
-                            if($scope.params.optionssuperficie || $scope.params.optionsdistceps || $scope.params.optionsdistrangs){
-                                $scope.nbPlants = $scope.params.optionssuperficie / ( $scope.params.optionsdistceps * $scope.params.optionsdistrangs) ;
-                                $scope.showHome = false;
-                                $scope.showformPltsActsParam = false;
-                                $scope.showformPltsActs = true;
-                            }
-                            else{
+	$scope.toDevis = function(){
+		if($scope.parSuperficie == true){
+			if($scope.params.optionssuperficie || $scope.params.optionsdistceps || $scope.params.optionsdistrangs){
+				$scope.nbPlants = $scope.params.optionssuperficie / ( $scope.params.optionsdistceps * $scope.params.optionsdistrangs) ;
+				$scope.showHome = false;
+				$scope.showformPltsActsParam = false;
+				$scope.showformPltsActs = true;
+			}
+			else{
 
-                            }
+			}
 
-                        }
-                        else{
-                                $scope.showHome = false;
-                                $scope.showformPltsActsParam = false;
-                                $scope.showformPltsActs = true;
-                        }
-                    };
+		}
+		else{
+			$scope.showHome = false;
+			$scope.showformPltsActsParam = false;
+			$scope.showformPltsActs = true;
+		}
+	};
 
 });

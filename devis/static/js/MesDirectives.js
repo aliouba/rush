@@ -15,20 +15,15 @@ angular.module("MesDirectives", [])
 	return {
 		restrict: "E",
         templateUrl: '/static/directivesHTML/paramsDevis.html',
+        require: 'ngModel',
         scope: {
               	conf: "=",
-               	selecthome: "&",
-                todevis: "&",
                 paramsuperficie: "=",
-                params: "=",
-                nbplants: "=",
-                showhome: "=",
-                showformpltsactsparam: "=",
-                showformpltsacts: "="
+               	selecthome: "&",
+                todevis: "&"
 
         },
         controller: function($scope) {
-
         }
 	}
 })
