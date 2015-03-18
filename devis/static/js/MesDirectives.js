@@ -8,7 +8,7 @@ angular.module("MesDirectives", [])
                 	conf: "=",
                 	selectparamplant: "&",
                     selectparamsuperficie: "&"
-                }
+                },
 	}
 })
 .directive("contenuParams", function() {
@@ -17,7 +17,8 @@ angular.module("MesDirectives", [])
         templateUrl: '/static/directivesHTML/paramsDevis.html',
         scope: {
               	conf: "=",
-                paramsuperficie: "=",
+                parplant: "=",
+                parsup: "=",
                	tohome: "&",
                 toestimate: "&"
 

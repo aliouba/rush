@@ -1,17 +1,16 @@
 var my_app = angular.module("newEstimate", [ "ngSanitize","ngResource", "ngRoute","ui.tinymce", "ngCookies" ,"ActivityServiceMock","MesDirectives"]);
-my_app.config(function($httpProvider,$resourceProvider) {
-	$httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+my_app.config(function($httpProvider,$resourceProvider,$routeProvider) {
+	$httpProvider.defaults.headers.common['X-CSRFToken'] = '{{ csrf_token|escapejs }}';
 });
 
-my_app.controller("formMakedevisCtrl", function($scope, $location, $filter ,$http, $cookies,activitiesService ) {
+my_app.controller("formMakedevisCtrl", function($scope,$routeParams, $location, $filter ,$http, $cookies,activitiesService ) {
+
+	/////////////////////////////////////////Get Siret///////////////
+	$scope.siret = activitiesService.getSiretInPath();
 	///Données///////////
-	$scope.detailsCompany = activitiesService.getEntrDetails(1234567891).get();
-	$scope.conf = activitiesService.getEntrConf(1234567891).get();
-	$scope.groups = activitiesService.getGroups(1234567891).query();
-	/////////////////////////////////////////
-	///////////////////////////////////////////
-
-
+	$scope.detailsCompany = activitiesService.getEntrDetails($scope.siret).get();
+	$scope.conf = activitiesService.getEntrConf($scope.siret).get();
+	$scope.groups = activitiesService.getGroups($scope.siret).query();
 	//Par défaut , on montre que la page d'accueil
 	$scope.showHome = true;
 	$scope.showformPltsActs = false;
@@ -20,8 +19,8 @@ my_app.controller("formMakedevisCtrl", function($scope, $location, $filter ,$htt
 	$scope.parPlant = false;
 	$scope.parSuperficie = false;	
 	$scope.typePlOuSup = null;
-	//Nombre de plants
-	$scope.nbPlants= 0;
+	//////Nb Plant/////////////
+	$scope.nbPlants = 0;
 	//Aller -> la page d'acueil
 	$scope.toShowHome = function(){
 		$scope.showHome = true;
@@ -47,15 +46,16 @@ my_app.controller("formMakedevisCtrl", function($scope, $location, $filter ,$htt
 	//Aller -> Activities par plant
 	$scope.toDevis = function(){
 		if($scope.parSuperficie == true){
-			console.log($scope.option);
-			if($scope.option.optionssuperficie || $scope.option.optionsdistceps || $scope.option.optionsdistrangs){
-				$scope.nbPlants = $scope.option.optionssuperficie / ( $scope.option.optionsdistceps * $scope.option.optionsdistrangs) ;
+			console.log($scope.params);
+			if($scope.params.optionssuperficie || $scope.params.optionsdistceps || $scope.params.optionsdistrangs){
+				$scope.nbPlants = $scope.params.optionssuperficie / ( $scope.params.optionsdistceps * $scope.params.optionsdistrangs) ;
+				console.log($scope.nbPlants);
 				$scope.showHome = false;
 				$scope.showformPltsActsParam = false;
 				$scope.showformPltsActs = true;
 			}
 			else{
-
+				console.log("error");
 			}
 
 		}
@@ -65,5 +65,5 @@ my_app.controller("formMakedevisCtrl", function($scope, $location, $filter ,$htt
 			$scope.showformPltsActs = true;
 		}
 	};
-
+	
 });
