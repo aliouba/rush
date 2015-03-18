@@ -3,7 +3,7 @@ my_app.config(function($httpProvider,$resourceProvider) {
 	$httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 });
 
-my_app.controller("formHomeCtrl", function($scope, $location, $filter ,$http, $cookies,activitiesService ) {
+my_app.controller("formMakedevisCtrl", function($scope, $location, $filter ,$http, $cookies,activitiesService ) {
 	///Données///////////
 	$scope.detailsCompany = activitiesService.getEntrDetails(1234567891).get();
 	$scope.conf = activitiesService.getEntrConf(1234567891).get();
@@ -47,8 +47,9 @@ my_app.controller("formHomeCtrl", function($scope, $location, $filter ,$http, $c
 	//Aller -> Activities par plant
 	$scope.toDevis = function(){
 		if($scope.parSuperficie == true){
-			if($scope.params.optionssuperficie || $scope.params.optionsdistceps || $scope.params.optionsdistrangs){
-				$scope.nbPlants = $scope.params.optionssuperficie / ( $scope.params.optionsdistceps * $scope.params.optionsdistrangs) ;
+			console.log($scope.option);
+			if($scope.option.optionssuperficie || $scope.option.optionsdistceps || $scope.option.optionsdistrangs){
+				$scope.nbPlants = $scope.option.optionssuperficie / ( $scope.option.optionsdistceps * $scope.option.optionsdistrangs) ;
 				$scope.showHome = false;
 				$scope.showformPltsActsParam = false;
 				$scope.showformPltsActs = true;
