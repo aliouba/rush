@@ -65,16 +65,18 @@ class ActivityPrestaViticole(models.Model):
         return u"%s" % self.description
 
 class Customer(models.Model):
-    firstname = models.CharField(max_length=45,null=True)
-    lastname = models.CharField(max_length=45, null=True)
-    phonenumber = models.CharField(max_length=45, null=True)
-    mail = models.CharField(max_length=45, null=True)
-    cp = models.CharField(max_length=45, null=True)
-    city = models.CharField(max_length=45, null=True)
-    adresse = models.CharField(max_length=45, null=True)
-    country = models.CharField(max_length=45, null=True)
+    firstname = models.CharField(max_length=45,null=True, blank=True)
+    lastname = models.CharField(max_length=45, null=True, blank=True)
+    phonenumber = models.CharField(max_length=45, null=True, blank=True)
+    mail = models.CharField(max_length=45, null=True, blank=True)
+    cp = models.CharField(max_length=45, null=True, blank=True)
+    city = models.CharField(max_length=45, null=True, blank=True)
+    adresse = models.CharField(max_length=45, null=True, blank=True)
+    country = models.CharField(max_length=45, null=True, blank=True)
     creationdate = models.DateTimeField(null=True)
     modificationdate = models.DateTimeField(null=True)
+    def __unicode__(self):
+        return u"%s" % self.firstname
 
 
 class Estimate(models.Model):
@@ -84,17 +86,17 @@ class Estimate(models.Model):
 
 
 class Benefit(models.Model):
-    nb = models.FloatField(null=True)
-    largeur_entre_rangs = models.DecimalField(max_digits=10, decimal_places=3,null=True)
-    distance_entre_ceps = models.DecimalField(max_digits=10, decimal_places=3,null=True)
-    surface = models.DecimalField(max_digits=10, decimal_places=3,null=True)
-    surface_manquant = models.DecimalField(max_digits=10, decimal_places=3,null=True)
-    unit_price = models.DecimalField(max_digits=10, decimal_places=3,null=True)    
-    unit_type = models.CharField(max_length=45)
-    price_with_tax = models.DecimalField(max_digits=10, decimal_places=3, null=True)
-    price_without_tax = models.DecimalField(max_digits=10, decimal_places=0 ,null=True)
-    tax = models.DecimalField(max_digits=10, decimal_places=0, null=True)
-    creationdate = models.DateTimeField(null=True)
-    modificationdate = models.DateTimeField(null=True)
+    nb = models.FloatField(null=True, blank=True)
+    largeur_entre_rangs = models.DecimalField(max_digits=10, decimal_places=3,null=True, blank=True)
+    distance_entre_ceps = models.DecimalField(max_digits=10, decimal_places=3,null=True, blank=True)
+    surface = models.DecimalField(max_digits=10, decimal_places=3,null=True, blank=True)
+    surface_manquant = models.DecimalField(max_digits=10, decimal_places=3,null=True, blank=True)
+    unit_price = models.DecimalField(max_digits=10, decimal_places=3,null=True, blank=True)    
+    unit_type = models.CharField(max_length=45, blank=True)
+    price_with_tax = models.DecimalField(max_digits=10, decimal_places=3, null=True, blank=True)
+    price_without_tax = models.DecimalField(max_digits=10, decimal_places=0 ,null=True, blank=True)
+    tax = models.DecimalField(max_digits=10, decimal_places=0, null=True, blank=True)
+    creationdate = models.DateTimeField(null=True, blank=True)
+    modificationdate = models.DateTimeField(null=True, blank=True)
     activity = models.ForeignKey(ActivityPrestaViticole)
-    estimate = models.ForeignKey(Estimate)
+    estimate = models.ForeignKey(Estimate, related_name='estimates', related_query_name='estimate')

@@ -21,6 +21,19 @@ angular.module("ActivityServiceMock", [])
           return  tabPath[i+1];
         }
       };          
+    },
+    makeDeis: function () {
+      var dataObj = {
+        benefits : "ooooooooooo",
+        params : "okkkk"
+      };  
+      var res = $http.post('/prestaviticoles/make_estimate/1234567891/', "okkkkk");
+      res.success(function(data, status, headers, config) {
+        console.log(data);
+      });
+      res.error(function(data, status, headers, config) {
+        alert( "failure message: " + JSON.stringify({data: data}));
+      });
     }
   }
 })  

@@ -9,7 +9,12 @@ from rest_framework.permissions import IsAuthenticated
 
 
 def make_estimate(request,siret):
-    return render(request, 'presta_viticoles/select-activities.html')    
+    print "Step 1"
+    if request.method == 'POST':
+        print "okkk"
+        return "okkkk"
+    else:
+        return render(request, 'presta_viticoles/select-activities.html')
 class CompanyDetail(APIView):
     """
     Retrieve, update or delete a company instance.
@@ -73,4 +78,10 @@ class ActivitiesGroupList(APIView):
         company = Company.objects.filter(siret=siret)[0]
         acts = ActivityGroup.objects.filter(group__company=company.id).distinct()
         serializer = GroupActivitiesSerializer(acts,many=True)
+        return Response(serializer.data)
+class EstimatesCustomerList(APIView):
+    def get(self, request, customerID , format=None):
+        print "jjjjj"
+        estim = Estimate.objects.filter(customer_id=customerID)
+        serializer = EstimateSerializer(estim,many=True)
         return Response(serializer.data)

@@ -17,3 +17,11 @@ class GroupActivitiesSerializer(serializers.ModelSerializer):
     groups = ActivitiesSerializer(read_only=True, many=True)
     class Meta:
         model = ActivityGroup
+
+class BenefitSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Benefit
+class EstimateSerializer(serializers.ModelSerializer):
+    estimates = BenefitSerializer(read_only=True,many=True)
+    class Meta:
+        model = Estimate

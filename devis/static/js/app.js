@@ -1,6 +1,7 @@
 var my_app = angular.module("newEstimate", [ "ngSanitize","ngResource", "ngRoute","ui.tinymce", "ngCookies" ,"ActivityServiceMock","MesDirectives"]);
 my_app.config(function($httpProvider,$resourceProvider,$routeProvider) {
-	$httpProvider.defaults.headers.common['X-CSRFToken'] = '{{ csrf_token|escapejs }}';
+		$httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+		$http.defaults.headers.post['X-CSRFToken'] = $cookies.csrftoken;
 });
 
 my_app.controller("formMakedevisCtrl", function($scope,$routeParams, $location, $filter ,$http, $cookies,activitiesService ) {
@@ -19,8 +20,6 @@ my_app.controller("formMakedevisCtrl", function($scope,$routeParams, $location, 
 	$scope.parPlant = false;
 	$scope.parSuperficie = false;	
 	$scope.typePlOuSup = null;
-	//////Nb Plant/////////////
-	$scope.nbPlants = 0;
 	//Aller -> la page d'acueil
 	$scope.toShowHome = function(){
 		$scope.showHome = true;
@@ -45,11 +44,11 @@ my_app.controller("formMakedevisCtrl", function($scope,$routeParams, $location, 
 	};
 	//Aller -> Activities par plant
 	$scope.toDevis = function(){
+		activitiesService.makeDeis();
 		if($scope.parSuperficie == true){
 			console.log($scope.params);
 			if($scope.params.optionssuperficie || $scope.params.optionsdistceps || $scope.params.optionsdistrangs){
-				$scope.nbPlants = $scope.params.optionssuperficie / ( $scope.params.optionsdistceps * $scope.params.optionsdistrangs) ;
-				console.log($scope.nbPlants);
+				$scope.params.nbPlants = $scope.params.optionssuperficie / ( $scope.params.optionsdistceps * $scope.params.optionsdistrangs) ;
 				$scope.showHome = false;
 				$scope.showformPltsActsParam = false;
 				$scope.showformPltsActs = true;

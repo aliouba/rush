@@ -8,9 +8,7 @@
     <contenu-home-devis 
     ng-show="showHome == true" 
     conf="conf" 
-    entr="detailsCompany" 
-    selectparamplant="toDevisParams('plant')"
-    selectparamsuperficie="toDevisParams('superficie')">
+    entr="detailsCompany">
 </contenu-home-devis>
 <div ng-show="showformPltsActsParam == true" class="spacer">
         <form id="formPltsActsParam" name="formPltsActsParam" class="form-horizontal" novalidate>
@@ -54,7 +52,6 @@
                         ng-model="$parent.params.optionssuperficie" 
                         required />
                 </div>
-                {{ option }}
             </div>
             <div class="form-group">
                 <label for="inputdistanceps" class="col-sm-2 control-label">Distance entre Ceps</label>
@@ -91,7 +88,6 @@
             ng-disabled="formPltsActsParam.$invalid">Choisir vos prestations
             </button>
         </div>
-    {{ option }}
     </form>                   
 </div>
 <contenu-plants 
