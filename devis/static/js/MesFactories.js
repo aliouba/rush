@@ -22,12 +22,9 @@ angular.module("ActivityServiceMock", [])
         }
       };          
     },
-    makeDeis: function () {
-      var dataObj = {
-        benefits : "ooooooooooo",
-        params : "okkkk"
-      };  
-      var res = $http.post('/prestaviticoles/make_estimate/1234567891/', "okkkkk");
+    makeDeis: function (groups) {
+      console.log(groups);
+      var res = $http.post('/prestaviticoles/make_estimate/1234567891/', groups);
       res.success(function(data, status, headers, config) {
         console.log(data);
       });

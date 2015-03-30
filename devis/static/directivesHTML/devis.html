@@ -1,17 +1,5 @@
                 <div class="spacer">
 
-                    <div class="spacer input-group">
-                        <div class="input-group-addon">
-                            <span class="glyphicon glyphicon-search"></span>
-                        </div>
-                        <input type="text" ng-model="recherche" class="form-control" placeholder="Rechercher Une activité..."/>
-                        <div class="input-group-btn">
-                            <button class="btn btn-default" ng-click="razRecherche()">
-                                <span class="glyphicon glyphicon-remove"></span>
-                            </button>
-                        </div>
-                    </div>
-
                     <form id="formPltsActs" name="formPltsActs" class="form-inline" novalidate>
                         <table class="table table-striped  spacer">
                             <thead>
@@ -28,50 +16,36 @@
                                         <a>Nombre de Plants</a>
                                         <span></span>
                                     </th>
-                                    <th>
-                                        <a>Prix Euro/Plants</a>
-                                        <span></span>
-                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr  ng-repeat="group in groups | filter:recherche" >
+                                <tr  ng-repeat="group in groups" >
                                         <td>{{ group.name }}</td>
                                         <td>
                                            <select ng-model="activitySelected"  
-                                                    ng-change="selectBenefit(group.id,activitySelected,nbplants)">
+                                                    ng-change="selectBenefit(group.id,activitySelected)">
                                                 <option ng-repeat="activity in group.groups" value="{{activity.id}}" >
                                                     {{activity.description}}
                                                 </option>
                                             </select>
                                         </td>
-                                        <td><input ng-model="nbplants" 
-                                                    ng-change="updateNbPlants(group.id,nbplants)" 
-                                                    class="form-control" 
-                                                    type="number" 
-                                                    min="0" 
-                                                    value="0"
+                                        <td><input class="form-control" 
+                                                    value="{{params.nombrePlants}}"
+                                                    readonly
                                             />
-                                        </td>
-                                        <td>
-                                            <input  class="form-control"  ng-if="params.optionsguyot == 'gs'" type="number" ng-model="pricePlants" value="{{ activity.price_plant_gs }}" readonly />
-                                            <input class="form-control"  ng-if="params.optionsguyot == 'gd'" type="number" ng-model="pricePlantd"  value="{{ activity.price_plant_gd }}" readonly />
                                         </td>
 
                                 </tr>
                             </tbody>
                         </table>
-                        <pre class="well">Devis par Sup : {{ devisparsup }}</pre>
-                        <pre class="well">Devis par plant : {{ devisparplant }}</pre>
                         <div class="spacer">
-                            <button ng-click="selectparam()" 
+                            <button ng-click="todevisparams()" 
                                 class="btn btn-info text-center">Revenir au Choix Type de Guyot
                             </button>
-                            <button ng-click="to()" 
+                            <button ng-click="createestimate()" 
                                 class="btn btn-info pull-right" 
                                 ng-disabled="formPltsActs.$pristine">Valider
                             </button>
                         </div>
-                        aaa: {{ benefits }}
                     </form>
                 </div>
