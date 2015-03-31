@@ -1,15 +1,16 @@
                 <div class="spacer">
                     <form id="formPltsActsParam" name="formPltsActsParam" class="form-horizontal" novalidate>
+                         
                         <h2>Guyot Simple ou Guyot Double</h2>            
                         <div ng-if="conf.guyots" class="radio">
                           <label>
-                            <input ng-model="params.optionsguyot" type="radio" name="optionsguyot" id="optionsguyot1" value="gs" checked />
+                            <input ng-model="params.optionsguyot" type="radio" name="optionsguyot" id="optionsguyot1" value="gs" checked required />
                             Guyot Simple
                           </label>
                         </div>
                         <div ng-if="conf.guyotd" class="radio">
                           <label>
-                            <input ng-model="params.optionsguyot" type="radio" name="optionsguyot" id="optionsguyot2" value="gd" />
+                            <input ng-model="params.optionsguyot" type="radio" name="optionsguyot" id="optionsguyot2" value="gd" required />
                             Guyot Double
                           </label>
                         </div>

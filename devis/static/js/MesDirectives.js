@@ -9,6 +9,7 @@ angular.module("MesDirectives", ["ActivityServiceMock"])
          showhome: "=",
          showparams: "=",
          showdevis: "=",
+         showformuser: "=",
          parplant: "=",
          parsuperficie: "=",
          typeplousup: "="                                                   
@@ -29,6 +30,7 @@ angular.module("MesDirectives", ["ActivityServiceMock"])
                 $scope.showhome = false;
                 $scope.showparams = true;
                 $scope.showdevis = false;
+                $scope.showformuser = false;
             };        
         }
     }
@@ -43,6 +45,7 @@ angular.module("MesDirectives", ["ActivityServiceMock"])
             showhome: "=",
             showparams: "=",
             showdevis: "=",
+            showformuser: "=",
             parplant: "=",
             parsuperficie: "=",
             typeplousup: "="    
@@ -53,6 +56,7 @@ angular.module("MesDirectives", ["ActivityServiceMock"])
                 $scope.showhome = true;
                 $scope.showparams = false;
                 $scope.showdevis = false;
+                $scope.showformuser = false;
             };
             //Aller -> Activities par plant
             $scope.toestimate = function(){
@@ -63,6 +67,7 @@ angular.module("MesDirectives", ["ActivityServiceMock"])
                             $scope.showhome = false;
                             $scope.showparams = false;
                             $scope.showdevis = true;
+                            $scope.showformuser = false;
                         }
                     }
                 }
@@ -71,6 +76,7 @@ angular.module("MesDirectives", ["ActivityServiceMock"])
                         $scope.showhome = false;
                         $scope.showparams = false;
                         $scope.showdevis = true;
+                        $scope.showformuser = false;
                     }
                 }
             };
@@ -84,12 +90,14 @@ angular.module("MesDirectives", ["ActivityServiceMock"])
                 scope: {
                 	groups: "=",
                     params: "=",
+                    benefits: "=", 
                     showhome: "=",
                     showparams: "=",
                     showdevis: "=",
+                    showformuser: "=",
                     parplant: "=",
                     parsuperficie: "=",
-                    typeplousup: "="    
+                    typeplousup: "="   
                 },
                 controller: function($scope) {
                         //Aller > Page de params
@@ -97,9 +105,13 @@ angular.module("MesDirectives", ["ActivityServiceMock"])
                             $scope.showhome = false;
                             $scope.showparams = true;
                             $scope.showdevis = false;
+                            $scope.showformuser = false;
                         }; 
-                        $scope.createestimate = function(){
-                            console.log($scope.benefits);
+                        $scope.touserdetails = function(){
+                            $scope.showhome = false;
+                            $scope.showparams = false;
+                            $scope.showdevis = false;
+                            $scope.showformuser = true;
                         };     
                         $scope.benefits = [];
                         $scope.selectBenefit = function(groupID,activityID){
@@ -118,4 +130,35 @@ angular.module("MesDirectives", ["ActivityServiceMock"])
                         };
                 }
 	}
+})
+.directive("contenuUser", function(activitiesService) {
+    return {
+        restrict: "E",
+                templateUrl: '/static/directivesHTML/userRegistration.html',
+                scope: {   
+                    groups: "=",
+                    params: "=",
+                    benefits: "=", 
+                    showhome: "=",
+                    showparams: "=",
+                    showdevis: "=",
+                    showformuser: "=",
+                    parplant: "=",
+                    parsuperficie: "=",
+                    typeplousup: "="    
+                },
+                controller: function($scope) {
+                        //Aller > Devis
+                        $scope.todevis = function(){
+                            $scope.showhome = false;
+                            $scope.showparams = false;
+                            $scope.showdevis = true;
+                            $scope.showformuser = false;
+                        }; 
+                        ///VALIDER
+                        $scope.createestimate = function(){
+                            activitiesService.makeDeis($scope.benefits,$scope.params);
+                        };  
+                }
+    }
 })

@@ -3,6 +3,7 @@
 {% block title %} Obtenir Un Devis {% endblock %}
 
 {% block content %}
+{% csrf_token %}
 {% verbatim %} 
 <div class="row-fluid"  ng-app="newEstimate" ng-controller="formMakedevisCtrl">
 
@@ -13,6 +14,7 @@
         showhome="showHome"
         showparams="showformPltsActsParam"
         showdevis="showformPltsActs"
+        showformuser="showformUser"
         parplant="parPlant"
         parsuperficie="parSuperficie"
         typeplousup="typePlOuSup"
@@ -27,6 +29,7 @@
         showhome="showHome"
         showparams="showformPltsActsParam"
         showdevis="showformPltsActs"
+        showformuser="showformUser"
         parplant="parPlant"
         parsuperficie="parSuperficie"
         typeplousup="typePlOuSup"
@@ -37,14 +40,31 @@
         ng-show="showformPltsActs == true"
         groups="groups"
         params="allParams"
+        benefits="allbenefits"
         showhome="showHome"
         showparams="showformPltsActsParam"
         showdevis="showformPltsActs"
+        showformuser="showformUser"
         parplant="parPlant"
         parsuperficie="parSuperficie"
         typeplousup="typePlOuSup"
     >
     </contenu-devis>
+    <contenu-user
+        ng-show="showformUser == true"
+        groups="groups"
+        params="allParams"
+        benefits="allbenefits"        
+        showhome="showHome"
+        showparams="showformPltsActsParam"
+        showdevis="showformPltsActs"
+        showformuser="showformUser"
+        parplant="parPlant"
+        parsuperficie="parSuperficie"
+        typeplousup="typePlOuSup"
+    >
+    </contenu-user>
+    {{ allbenefits}}
 </div>
 {% endverbatim %}
 {% endblock %}

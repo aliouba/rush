@@ -22,14 +22,14 @@ angular.module("ActivityServiceMock", [])
         }
       };          
     },
-    makeDeis: function (groups) {
+    makeDeis: function (groups,alloptions) {
       console.log(groups);
-      var res = $http.post('/prestaviticoles/make_estimate/1234567891/', groups);
-      res.success(function(data, status, headers, config) {
-        console.log(data);
-      });
-      res.error(function(data, status, headers, config) {
-        alert( "failure message: " + JSON.stringify({data: data}));
+      $http({
+          url: "/prestaviticoles/make_estimate/1234567891/",
+          contentType: 'application/json',
+          method: 'POST',
+          data: { 'benefits': groups,'allparams' : alloptions},
+          dataType: 'json'
       });
     }
   }

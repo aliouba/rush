@@ -1,3 +1,6 @@
+import json
+from django.utils.six import BytesIO
+from django.http import JsonResponse
 from django.shortcuts import render
 from presta_viticoles.models import *
 from presta_viticoles.serializers import *
@@ -6,13 +9,34 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
-
+from rest_framework.renderers import JSONRenderer
+from rest_framework.parsers import JSONParser
 
 def make_estimate(request,siret):
-    print "Step 1"
     if request.method == 'POST':
-        print "okkk"
-        return "okkkk"
+        print "POST"
+        """
+        Recupérer les activities de l'entreprise
+        """
+        company = Company.objects.filter(siret=siret)[0]
+        acts = ActivityGroup.objects.filter(group__company=company.id).distinct()
+        serializer = GroupActivitiesSerializer(acts,many=True)
+        content = JSONRenderer().render(serializer.data)
+        stream = BytesIO(content)
+        activities = JSONParser().parse(stream)
+        print "fffffffff"
+        """
+        Recupération de ce que le client a envoyé par POST
+        """
+        data = json.loads(request.body)
+        benefits =  data['benefits']
+        """
+        Vérification de ce que le client a envoyé au serveur
+        """
+        for benefit in benefits:
+            for group in activities:
+                print group
+        return render(request, 'presta_viticoles/select-activities.html')
     else:
         return render(request, 'presta_viticoles/select-activities.html')
 class CompanyDetail(APIView):
