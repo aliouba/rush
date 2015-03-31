@@ -14,7 +14,7 @@ class ConfigPrestaViticoleSerializer(serializers.ModelSerializer):
 		model = ConfigPrestaViticole
 
 class GroupActivitiesSerializer(serializers.ModelSerializer):
-    groups = ActivitiesSerializer(read_only=True, many=True)
+    activities = ActivitiesSerializer(read_only=True, many=True)
     class Meta:
         model = ActivityGroup
 

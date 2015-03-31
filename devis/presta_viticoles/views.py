@@ -14,28 +14,46 @@ from rest_framework.parsers import JSONParser
 
 def make_estimate(request,siret):
     if request.method == 'POST':
-        print "POST"
+        benefitsSelected = {}
         """
-        Recupérer les activities de l'entreprise
+        Recuperer les activities de l'entreprise
         """
         company = Company.objects.filter(siret=siret)[0]
-        acts = ActivityGroup.objects.filter(group__company=company.id).distinct()
+        acts = ActivityGroup.objects.filter(activity__company=company.id).distinct()
         serializer = GroupActivitiesSerializer(acts,many=True)
         content = JSONRenderer().render(serializer.data)
         stream = BytesIO(content)
-        activities = JSONParser().parse(stream)
-        print "fffffffff"
+        groups = JSONParser().parse(stream)
         """
-        Recupération de ce que le client a envoyé par POST
+        Recuperation de ce que du POST
         """
         data = json.loads(request.body)
         benefits =  data['benefits']
+        Userparaams = data['allparams']
+        print Userparaams
+        if Userparaams['parPlant']:
+            print "Par plant"
+        elif Userparaams['parSuperficie']:
+            print "Par Superficie"
+
         """
-        Vérification de ce que le client a envoyé au serveur
+        Verification
         """
+        k=0
         for benefit in benefits:
-            for group in activities:
-                print group
+            for group in groups:
+                if group['id'] == benefit['group']:
+                    activitiesIngroup = group['activities']
+                    for activity in activitiesIngroup:
+                        if activity['id'] == int(benefit['activity']):
+                            new = {}
+                            new['activity'] = activity['id']
+                            if Userparaams['optionsguyot'] == 'gd':
+                                new['unitPrice'] = activity['price_plant_gd']
+                            elif Userparaams['optionsguyot'] == 'gs':
+                                new['unitPrice'] = activity['price_plant_gs']
+                            print new
+                            k = k +1
         return render(request, 'presta_viticoles/select-activities.html')
     else:
         return render(request, 'presta_viticoles/select-activities.html')
@@ -100,12 +118,12 @@ class ActivitiesGroupList(APIView):
     """
     def get(self, request, siret , format=None):
         company = Company.objects.filter(siret=siret)[0]
-        acts = ActivityGroup.objects.filter(group__company=company.id).distinct()
+        acts = ActivityGroup.objects.filter(activity__company=company.id).distinct()
         serializer = GroupActivitiesSerializer(acts,many=True)
+        print serializer.data
         return Response(serializer.data)
 class EstimatesCustomerList(APIView):
     def get(self, request, customerID , format=None):
-        print "jjjjj"
         estim = Estimate.objects.filter(customer_id=customerID)
         serializer = EstimateSerializer(estim,many=True)
         return Response(serializer.data)

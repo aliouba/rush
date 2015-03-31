@@ -25,7 +25,7 @@
                                         <td>
                                            <select ng-model="activitySelected"  
                                                     ng-change="selectBenefit(group.id,activitySelected)">
-                                                <option ng-repeat="activity in group.groups" value="{{activity.id}}" >
+                                                <option ng-repeat="activity in group.activities" value="{{activity.id}}" >
                                                     {{activity.description}}
                                                 </option>
                                             </select>
