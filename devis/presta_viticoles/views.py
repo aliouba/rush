@@ -15,6 +15,7 @@ from rest_framework.parsers import JSONParser
 def make_estimate(request,siret):
     if request.method == 'POST':
         benefitsSelected = {}
+        estimate = {}
         """
         Recuperer les activities de l'entreprise
         """
@@ -30,11 +31,18 @@ def make_estimate(request,siret):
         data = json.loads(request.body)
         benefits =  data['benefits']
         Userparaams = data['allparams']
-        print Userparaams
         if Userparaams['parPlant']:
-            print "Par plant"
+            estimate['nb'] = int(Userparaams['nombrePlants'])
+            estimate['type_guyot'] = Userparaams['optionsguyot']
+            estimate['plant_superficie'] = 'plt'
         elif Userparaams['parSuperficie']:
-            print "Par Superficie"
+            estimate['type_guyot'] = Userparaams['optionsguyot']
+            estimate['nb'] = int(Userparaams['nombrePlants'])
+            estimate['plant_superficie'] = 'sup'
+
+            estimate['surface'] = float(Userparaams['optionssuperficie'])
+            estimate['distance_entre_ceps'] = float(Userparaams['optionsdistceps'])
+            estimate['largeur_entre_rangs'] = float(Userparaams['optionsdistrangs'])    
 
         """
         Verification
@@ -50,10 +58,14 @@ def make_estimate(request,siret):
                             new['activity'] = activity['id']
                             if Userparaams['optionsguyot'] == 'gd':
                                 new['unitPrice'] = activity['price_plant_gd']
+                                new['tax'] = activity['tax']
                             elif Userparaams['optionsguyot'] == 'gs':
                                 new['unitPrice'] = activity['price_plant_gs']
-                            print new
+                                new['tax'] = activity['tax']
+                            benefitsSelected[k]=new
                             k = k +1
+        print benefitsSelected
+        print estimate
         return render(request, 'presta_viticoles/select-activities.html')
     else:
         return render(request, 'presta_viticoles/select-activities.html')
@@ -120,7 +132,6 @@ class ActivitiesGroupList(APIView):
         company = Company.objects.filter(siret=siret)[0]
         acts = ActivityGroup.objects.filter(activity__company=company.id).distinct()
         serializer = GroupActivitiesSerializer(acts,many=True)
-        print serializer.data
         return Response(serializer.data)
 class EstimatesCustomerList(APIView):
     def get(self, request, customerID , format=None):
