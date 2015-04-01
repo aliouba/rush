@@ -1,4 +1,6 @@
 import json
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
 from django.utils.six import BytesIO
 from django.http import JsonResponse
 from django.shortcuts import render
@@ -39,10 +41,19 @@ def make_estimate(request,siret):
             estimate['type_guyot'] = Userparaams['optionsguyot']
             estimate['nb'] = int(Userparaams['nombrePlants'])
             estimate['plant_superficie'] = 'sup'
-
             estimate['surface'] = float(Userparaams['optionssuperficie'])
             estimate['distance_entre_ceps'] = float(Userparaams['optionsdistceps'])
-            estimate['largeur_entre_rangs'] = float(Userparaams['optionsdistrangs'])    
+            estimate['largeur_entre_rangs'] = float(Userparaams['optionsdistrangs'])
+        if request.user.is_authenticated():
+            estimate['customer'] = request.user.id
+        else:
+            user = User.objects.filter(email=Userparaams['mail'])
+            if user.count() > 0:
+                print "Mail exist"
+            else:
+                new_password = User.objects.make_random_password()
+                user = User.objects.create_user(Userparaams['nom'], Userparaams['mail'], new_password)
+                estimate['customer'] = request.user.id
 
         """
         Verification
@@ -64,8 +75,7 @@ def make_estimate(request,siret):
                                 new['tax'] = activity['tax']
                             benefitsSelected[k]=new
                             k = k +1
-        print benefitsSelected
-        print estimate
+        create_estimate(estimate,benefitsSelected)
         return render(request, 'presta_viticoles/select-activities.html')
     else:
         return render(request, 'presta_viticoles/select-activities.html')
@@ -138,3 +148,6 @@ class EstimatesCustomerList(APIView):
         estim = Estimate.objects.filter(customer_id=customerID)
         serializer = EstimateSerializer(estim,many=True)
         return Response(serializer.data)
+
+def create_estimate(allparams,allbenefits):
+    print "okk"
