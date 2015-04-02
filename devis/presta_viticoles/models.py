@@ -71,6 +71,7 @@ class Customer(models.Model):
     city = models.CharField(max_length=45, null=True, blank=True)
     adresse = models.CharField(max_length=45, null=True, blank=True)
     country = models.CharField(max_length=45, null=True, blank=True)
+    user = models.ForeignKey(User)
     creationdate = models.DateTimeField(null=True)
     modificationdate = models.DateTimeField(null=True)
     def __unicode__(self):
