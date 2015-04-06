@@ -66,7 +66,7 @@ class Customer(models.Model):
     firstname = models.CharField(max_length=45,null=True, blank=True)
     lastname = models.CharField(max_length=45, null=True, blank=True)
     phonenumber = models.CharField(max_length=45, null=True, blank=True)
-    mail = models.CharField(max_length=45, null=True, blank=True)
+    mail = models.CharField(max_length=255)
     cp = models.CharField(max_length=45, null=True, blank=True)
     city = models.CharField(max_length=45, null=True, blank=True)
     adresse = models.CharField(max_length=45, null=True, blank=True)
@@ -75,7 +75,7 @@ class Customer(models.Model):
     creationdate = models.DateTimeField(null=True)
     modificationdate = models.DateTimeField(null=True)
     def __unicode__(self):
-        return u"%s" % self.firstname
+        return u"%s" % self.mail
 
 
 class Estimate(models.Model):
@@ -90,7 +90,8 @@ class Estimate(models.Model):
     surface = models.DecimalField(max_digits=10, decimal_places=3,null=True, blank=True)
     plant_superficie = models.CharField(max_length=3,null=True, blank=True)
     customer = models.ForeignKey(Customer)
-
+    def __unicode__(self):
+        return u"%s et %s" % (self.customer,self.creationdate)
 
 class Benefit(models.Model):
     unit_price = models.DecimalField(max_digits=10, decimal_places=3,null=True, blank=True)    
