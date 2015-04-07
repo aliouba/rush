@@ -12,7 +12,7 @@ class Company(models.Model):
     adresse = models.CharField(max_length=45,null=True, blank=True)
     country = models.CharField(max_length=45,null=True, blank=True)
     logo = models.FileField(max_length=45,null=True, blank=True)
-    creationdate = models.DateTimeField(null=True)
+    creationdate = models.DateTimeField(auto_now_add=True, blank=True,null=True)
     modificationdate = models.DateTimeField(null=True)
     def __unicode__(self):
         return u"%s" % self.name
@@ -36,7 +36,7 @@ class ConfigPrestaViticole(models.Model):
     superficie = models.BooleanField(default=False)
     plant = models.BooleanField(default=False)
     nb_plants_min = models.IntegerField(default=0)
-    creationdate = models.DateTimeField(null=True)
+    creationdate = models.DateTimeField(auto_now_add=True, blank=True,null=True)
     modificationdate = models.DateTimeField(null=True)
     company = models.ForeignKey(Company)
     def __unicode__(self):
@@ -56,7 +56,7 @@ class ActivityPrestaViticole(models.Model):
     price_ha_gs = models.DecimalField(max_digits=10, decimal_places=3,null=True)
     price_ha_gd = models.DecimalField(max_digits=10, decimal_places=3,null=True)
     tax = models.DecimalField(max_digits=10, decimal_places=0, null=True, blank=True,default=0)
-    creationdate = models.DateTimeField(null=True)
+    creationdate = models.DateTimeField(auto_now_add=True, blank=True,null=True)
     modificationdate = models.DateTimeField(null=True)
     company = models.ForeignKey(Company)
     def __unicode__(self):
@@ -72,14 +72,14 @@ class Customer(models.Model):
     adresse = models.CharField(max_length=45, null=True, blank=True)
     country = models.CharField(max_length=45, null=True, blank=True)
     user = models.ForeignKey(User)
-    creationdate = models.DateTimeField(null=True)
+    creationdate = models.DateTimeField(auto_now_add=True, blank=True,null=True)
     modificationdate = models.DateTimeField(null=True)
     def __unicode__(self):
         return u"%s" % self.mail
 
 
 class Estimate(models.Model):
-    creationdate = models.DateTimeField(null=True)
+    creationdate = models.DateTimeField(auto_now_add=True, blank=True,null=True)
     modificationdate = models.DateTimeField(null=True)
     nb = models.FloatField(null=True, blank=True)
     price_with_tax = models.DecimalField(max_digits=10, decimal_places=3, null=True, blank=True)
@@ -99,7 +99,7 @@ class Benefit(models.Model):
     price_with_tax = models.DecimalField(max_digits=10, decimal_places=3, null=True, blank=True)
     price_without_tax = models.DecimalField(max_digits=10, decimal_places=0 ,null=True, blank=True)
     tax = models.DecimalField(max_digits=10, decimal_places=0, null=True, blank=True)
-    creationdate = models.DateTimeField(null=True, blank=True)
+    creationdate = models.DateTimeField(auto_now_add=True,null=True, blank=True)
     modificationdate = models.DateTimeField(null=True, blank=True)
     activity = models.ForeignKey(ActivityPrestaViticole)
     estimate = models.ForeignKey(Estimate, related_name='estimates', related_query_name='estimate')
