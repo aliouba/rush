@@ -13,6 +13,11 @@ angular.module("ActivityServiceMock", [])
         {siret:siret}
         );  
      },
+     getCEstimates: function (siret) {
+       return $resource('/prestaviticoles/api/Cbenefits/:customer/',
+        {customer:siret}
+        );  
+     },
      getSiretInPath: function(){
       newPath = $location.absUrl();
       var tabPath = newPath.split("/");

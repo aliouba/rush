@@ -4,10 +4,10 @@ from presta_viticoles.models import *
 from presta_viticoles.serializers import *
 
 from django.core.validators import validate_email
-
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login
 from django.utils.six import BytesIO
 from django.http import JsonResponse
 from django.http import HttpResponseRedirect
@@ -189,3 +189,24 @@ def check_post_new_estimate(request,allparams):
             estimate['customer'] = user 
             estimate['mail'] = allparams['mail']
     return estimate
+def estimates_customer(customerID,siret):
+    print "jjj"
+def login_customer(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(username=username, password=password)
+    try:
+        customer = Customer.objects.get(user=user)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+            else:
+                error = "Valid but the account has been disabled!"
+        else:
+            error = "The username and password were incorrect."
+    except ObjectDoesNotExist:
+        try:
+            emplpoyee = Employee.objects.get(user=user)
+            error = "Votre compte n'hexiste pas"
+        except ObjectDoesNotExist:
+            error = "Vous n'etes pas autorisé à obtenir un devis automatique"
