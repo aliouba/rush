@@ -27,6 +27,15 @@ angular.module("ActivityServiceMock", [])
         }
       };          
     },
+     getCustomerInPath: function(){
+      newPath = $location.absUrl();
+      var tabPath = newPath.split("/");
+      for (var i = 0; i < tabPath.length ; i++) {
+        if(tabPath[i] == "Cbenefits"){
+          return  tabPath[i+1];
+        }
+      };          
+    },
     makeDeis: function (groups,alloptions) {
       console.log(groups);
       $http({

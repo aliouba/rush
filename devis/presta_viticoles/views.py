@@ -191,8 +191,13 @@ def check_post_new_estimate(request,allparams):
             estimate['customer'] = user 
             estimate['mail'] = allparams['mail']
     return estimate
-def estimates_customer(customerID,siret):
-    print "jjj"
+def estimates_customer(request,customerID):
+    if request.user.is_authenticated():
+        try:
+            customer = Customer.objects.get(id=customerID)
+            return render(request, 'presta_viticoles/home-customers.html')
+        except:
+            return HttpResponseRedirect("/")
 def login_customer(request):
     if request.method == 'POST':
         print "post"
