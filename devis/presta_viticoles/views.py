@@ -209,4 +209,4 @@ def login_customer(request):
             emplpoyee = Employee.objects.get(user=user)
             error = "Votre compte n'hexiste pas"
         except ObjectDoesNotExist:
-            error = "Vous n'etes pas autorisé à obtenir un devis automatique"
+            error = "Forbidden"
