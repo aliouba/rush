@@ -41,7 +41,10 @@ INSTALLED_APPS = (
     "rest_framework",
     "registration",
 )
-
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.request',
+    )
 ACCOUNT_ACTIVATION_DAYS = 7
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',

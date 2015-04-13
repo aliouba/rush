@@ -2,6 +2,7 @@ import json
 
 from presta_viticoles.models import *
 from presta_viticoles.serializers import *
+from presta_viticoles.forms import *
 
 from django.core.validators import validate_email
 from django.core.exceptions import ObjectDoesNotExist
@@ -63,10 +64,11 @@ def make_estimate(request,siret):
                             benefitsSelected[k]=new
                             k = k +1
         create_estimate(user_params_checked,benefitsSelected)
-    
+        
         return render(request, 'presta_viticoles/select-activities.html')
     else:
-        return render(request, 'presta_viticoles/select-activities.html')
+        form = UserAuthLoginForm()
+        return render(request, 'presta_viticoles/select-activities.html',{'form':form})
 class CompanyDetail(APIView):
     """
     Retrieve, update or delete a company instance.
@@ -192,21 +194,30 @@ def check_post_new_estimate(request,allparams):
 def estimates_customer(customerID,siret):
     print "jjj"
 def login_customer(request):
-    username = request.POST['username']
-    password = request.POST['password']
-    user = authenticate(username=username, password=password)
-    try:
-        customer = Customer.objects.get(user=user)
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-            else:
-                error = "Valid but the account has been disabled!"
-        else:
-            error = "The username and password were incorrect."
-    except ObjectDoesNotExist:
+    if request.method == 'POST':
+        print "post"
+        email = request.POST['email']
+        password = request.POST['password']
+        next = request.POST['next']
+        user = authenticate(username=email, password=password)
+        error = ""
         try:
-            emplpoyee = Employee.objects.get(user=user)
-            error = "Votre compte n'hexiste pas"
+            customer = Customer.objects.get(user=user)
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                else:
+                    error = "Valid but the account has been disabled!"
+            else:
+                error = "The username and password were incorrect."
         except ObjectDoesNotExist:
-            error = "Forbidden"
+            try:
+                emplpoyee = Employee.objects.get(user=user)
+                error = "Forbidden because you are an employee"
+            except ObjectDoesNotExist:
+                error = "Votre compte n'hexiste pas"
+        print error
+        if next == "":
+            return HttpResponseRedirect("/")
+        else:
+            return HttpResponseRedirect(next)

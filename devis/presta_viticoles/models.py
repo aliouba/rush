@@ -28,7 +28,7 @@ class Employee(models.Model):
     company = models.ForeignKey(Company)
     user = models.ForeignKey(User)
     def __unicode__(self):
-        return u"%s %s" % self.firstname,self.lastname
+        return u"%s %s" % (self.firstname,self.lastname)
 
 class ConfigPrestaViticole(models.Model):
     guyots = models.BooleanField(default=False)

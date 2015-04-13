@@ -1,7 +1,7 @@
-from django.forms import Form
-class UserAuthLoginForm(Form):
-    email = EmailField()
-    password = forms.CharField(widget=forms.PasswordInput())
+from django import forms
+class UserAuthLoginForm(forms.Form):
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder':'Email','class':'form-control'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder':'Password ','class':'form-control'}))
     class Meta:
         widgets = {
             "email":forms.TextInput(attrs={'placeholder':'Email','class':'form-control'}),
