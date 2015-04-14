@@ -12,6 +12,6 @@ urlpatterns = patterns('',
     url(r'^api/Cbenefits/(?P<customerID>[0-9]+)/$',EstimatesCustomerList.as_view()),
     url(r'^make_estimate/(?P<siret>[0-9]+)/$', make_estimate),
     url(r'^Clogin$',login_customer, name='Clogin'),
-    url(r'^Cbenefits/(?P<customerID>[0-9]+)/$',estimates_customer, name='estimates_for_customer'),
+    url(r'^Cbenefits/(?P<customerID>[0-9]+)/$',CEstimatesView.as_view(), name='estimates_for_customer'),
     #url(r'^Ebenefits/(?P<siret>[0-9]+)/$',Ebenefits, name='benefits_for_companies'),
 )

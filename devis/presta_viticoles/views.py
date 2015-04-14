@@ -14,7 +14,9 @@ from django.http import JsonResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import View
-
+from django.conf.urls import url
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.views.generic import ListView, DetailView, TemplateView
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -195,9 +197,14 @@ def estimates_customer(request,customerID):
     if request.user.is_authenticated():
         try:
             customer = Customer.objects.get(id=customerID)
-            return render(request, 'presta_viticoles/home-customers.html')
+            if customer.user == request.user:
+                return render(request, 'presta_viticoles/home-customers.html')
+            else:
+                return HttpResponseRedirect("/")
         except:
             return HttpResponseRedirect("/")
+    else:
+        return HttpResponseRedirect("/")
 def login_customer(request):
     if request.method == 'POST':
         print "post"
@@ -226,3 +233,17 @@ def login_customer(request):
             return HttpResponseRedirect("/")
         else:
             return HttpResponseRedirect(next)
+
+class CEstimatesView(ListView):
+    model = Estimate 
+    context_object_name = 'cestimates'
+    template_name = 'presta_viticoles/home-customers.html'
+    def get_context_data(self, **kwargs):
+        context = super(CEstimatesView, self).get_context_data(**kwargs)
+        cestimates= Estimate.objects.filter(customer=self.kwargs['customerID'])
+        for estimate in cestimates:
+            benefits = Benefit.objects.filter(estimate=estimate)
+            onebenefit = benefits.get()
+            print onebenefit
+            estimate.benefits = benefits
+        return context
