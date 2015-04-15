@@ -85,7 +85,6 @@ class Estimate(models.Model):
     price_with_tax = models.DecimalField(max_digits=10, decimal_places=3, null=True, blank=True)
     price_without_tax = models.DecimalField(max_digits=10, decimal_places=0 ,null=True, blank=True)
     type_guyot = models.CharField(max_length=2,null=True, blank=True)
-    company_id = models.CharField(max_length=255,null=True, blank=True)
     largeur_entre_rangs = models.DecimalField(max_digits=10, decimal_places=3,null=True, blank=True)
     distance_entre_ceps = models.DecimalField(max_digits=10, decimal_places=3,null=True, blank=True)
     surface = models.DecimalField(max_digits=10, decimal_places=3,null=True, blank=True)

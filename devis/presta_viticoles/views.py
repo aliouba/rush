@@ -243,7 +243,23 @@ class CEstimatesView(ListView):
         cestimates= Estimate.objects.filter(customer=self.kwargs['customerID'])
         for estimate in cestimates:
             benefits = Benefit.objects.filter(estimate=estimate)
-            onebenefit = benefits.get()
-            print onebenefit
             estimate.benefits = benefits
+            onebenefit = benefits.first()
+            activity = ActivityPrestaViticole.objects.get(id=onebenefit.activity_id)
+            company = Company.objects.get(id=activity.company_id)
+            estimate.company = company
+        context["cestimates"] = cestimates
+        print context
         return context
+class CEstimatesList(APIView):
+    """
+    List all activities, or create a new activity.
+    """
+    def get(self, request, customerID , format=None):
+        print "rrrr"
+        cestimates= Estimate.objects.filter(customer=customerID).values('nb','price_with_tax','price_without_tax')
+        for estimate in cestimates:
+            benefits = Benefit.objects.filter(estimate_id=56).values('price_with_tax')
+            estimate.benefits = benefits
+        print cestimates
+        return Response(JsonResponse(cestimates))

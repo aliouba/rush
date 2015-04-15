@@ -25,3 +25,10 @@ class EstimateSerializer(serializers.ModelSerializer):
     estimates = BenefitSerializer(read_only=True,many=True)
     class Meta:
         model = Estimate
+class CEstimateSerializer(serializers.Serializer):
+    nb = serializers.FloatField()
+    price_with_tax = serializers.DecimalField(max_digits=10, decimal_places=3)
+    price_without_tax = serializers.DecimalField(max_digits=10, decimal_places=0)
+    Benefits = serializers.ListField(
+        child = serializers.DecimalField(max_digits=10, decimal_places=3)
+        )
